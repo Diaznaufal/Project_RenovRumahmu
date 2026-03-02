@@ -1,0 +1,58 @@
+import '../models/product_model.dart';
+
+final List<ProductModel> productList = [
+  ProductModel(
+    imageUrl: "images/pipa.jpg",
+    name: "Pipa PVC ABC 3\"",
+    price: 15000,
+    oldPrice: 20000,
+    discount: "25%",
+    size: ["1 Meter", "2 Meter", "3 Meter"],
+    isBestSeller: true,
+    isDiscount: true,
+  ),
+  ProductModel(
+    imageUrl: "images/semen.jpg",
+    name: "Semen Blue Circle",
+    price: 720000,
+    oldPrice: 800000,
+    discount: "5%",
+    size: ["23 kg", "40 kg", "50 kg"],
+    isBestSeller: true,
+    isDiscount: true,
+  ),
+  ProductModel(
+    imageUrl: "images/semen biasa.jpg",
+    name: "Semen No Brand",
+    price: 700000,
+    size: ["40 kg"],
+    isBestSeller: true,
+    isDiscount: false,
+  ),
+  ProductModel(
+    imageUrl: "images/cat.jpg",
+    name: "Cat Tembok Asianpaints",
+    price: 178000,
+    oldPrice: 210000,
+    discount: "15%",
+    size: ["5 kg"],
+    isBestSeller: false,
+    isDiscount: true,
+  ),
+  ProductModel(
+    imageUrl: "images/kabel.jpg",
+    name: "Kabel NYM 2x1.5",
+    price: 8000,
+    size: ["1 Meter"],
+    isBestSeller: false,
+    isDiscount: false,
+  ),
+  ProductModel(
+    imageUrl: "images/keramik.jpg",
+    name: "Keramik Roman Gray",
+    price: 10000,
+    size: ["50x50", "60x60", "80x80"],
+    isBestSeller: false,
+    isDiscount: false,
+  ),
+];

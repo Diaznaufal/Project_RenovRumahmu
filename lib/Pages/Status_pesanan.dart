@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Home_Page.dart';
+import 'package:flutter_application_1/models/Riwayat_Model.dart';
 import 'package:flutter_application_1/widgets/Header_Statuspesanan.dart';
 import 'package:flutter_application_1/widgets/Rincian_Pesanan.dart';
 import 'package:flutter_application_1/widgets/Riwayat_status.dart';
 import '../models/Order_status.dart';
 import 'package:provider/provider.dart';
 import '../Provider/Addres_Provider.dart';
-import '../Provider/Cart_Provider.dart';
+
 
 class StatusPesanan extends StatelessWidget {
-  StatusPesanan({super.key});
+  final RiwayatModel order;
+  StatusPesanan({super.key, required this.order});
 
   final List<OrderStatus> statuses = [
     OrderStatus(
       title: "Pesanan Dibuat",
       subtitle: "20 Feb 2026, 14:00 - Pembayaran Terverifikasi",
+    
     ),
     OrderStatus(
       title: "Pesanan Disiapkan",
@@ -35,9 +38,6 @@ class StatusPesanan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final address = context.watch<AddressProvider>();
-    final cart = context.watch<CartProvider>();
-
-    final items = cart.items.values.where((item) => item.isSelected).toList();
 
     return PopScope(
       canPop: false,
@@ -45,7 +45,7 @@ class StatusPesanan extends StatelessWidget {
         if (!didPop) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => HomePage()),
+            MaterialPageRoute(builder: (_) =>  HomePage()),
           );
         }
       },
@@ -55,7 +55,7 @@ class StatusPesanan extends StatelessWidget {
           shadowColor: Colors.black.withAlpha(77),
           titleSpacing: 1,
           toolbarHeight: 60,
-          title: Text(
+          title:  Text(
             "STATUS PESANAN",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
@@ -63,23 +63,25 @@ class StatusPesanan extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => HomePage()),
+                MaterialPageRoute(builder: (_) =>  HomePage()),
               );
             },
-            icon: Icon(Icons.arrow_back),
+            icon:  Icon(Icons.arrow_back),
           ),
         ),
         body: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HeaderStatuspesanan(),
-                  SizedBox(height: 15),
+                   SizedBox(height: 15),
+
+                  //Card Status + Alamat
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding:  EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -94,8 +96,11 @@ class StatusPesanan extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Status Pesanan", style: TextStyle(fontSize: 16)),
-                        SizedBox(height: 15),
+                         Text(
+                          "Status Pesanan",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                         SizedBox(height: 15),
 
                         Column(
                           children: List.generate(
@@ -109,25 +114,24 @@ class StatusPesanan extends StatelessWidget {
                           ),
                         ),
 
-                        Text("Alamat Tujuan", style: TextStyle(fontSize: 16)),
-                        SizedBox(height: 5),
+                         SizedBox(height: 15),
+                         Text(
+                          "Alamat Tujuan",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                         SizedBox(height: 5),
+
                         Row(
                           children: [
-                            Icon(
+                             Icon(
                               Icons.location_pin,
                               size: 15,
                               color: Color(0xff045097),
                             ),
-                            SizedBox(width: 4),
+                             SizedBox(width: 4),
                             Text(
-                              address.selectedAddress!.name.isNotEmpty
-                                  ? address.selectedAddress!.name[0]
-                                            .toUpperCase() +
-                                        address.selectedAddress!.name.substring(
-                                          1,
-                                        )
-                                  : "",
-                              style: TextStyle(
+                              address.selectedAddress?.name ?? "",
+                              style:  TextStyle(
                                 fontSize: 12,
                                 color: Color(0xff045097),
                                 fontWeight: FontWeight.bold,
@@ -136,25 +140,30 @@ class StatusPesanan extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          address.selectedAddress!.phone,
-                          style: TextStyle(fontSize: 10),
+                          address.selectedAddress?.phone ?? "",
+                          style:  TextStyle(fontSize: 10),
                         ),
-                        SizedBox(height: 5),
+                         SizedBox(height: 5),
                         Text(
-                          address.selectedAddress!.fullAddress,
-                          style: TextStyle(fontSize: 10),
+                          address.selectedAddress?.fullAddress ?? "",
+                          style:  TextStyle(fontSize: 10),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text("Rincian Pesanan", style: TextStyle(fontSize: 16)),
-                  ...items.map((item) {
-                    final key = '${item.product.name}_${item.selectedSize}';
-                    return RincianPesanan(item: item, itemKey: key);
-                  }).toList(),
+
+                   SizedBox(height: 15),
+
+                  //Rincian Pesanan
+                   Text("Rincian Pesanan", style: TextStyle(fontSize: 16)),
+                   SizedBox(height: 8),
+
+                  if (order.items == null || order.items!.isEmpty)
+                     Text("Tidak ada produk")
+                  else
+                    ...order.items!.map((item) => RincianPesanan(item: item)),
                 ],
               ),
             ),

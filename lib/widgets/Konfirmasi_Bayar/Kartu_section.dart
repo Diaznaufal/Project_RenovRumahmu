@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Status_pesanan.dart';
+import 'package:flutter_application_1/Provider/Cart_Provider.dart';
+import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
 import 'package:flutter_application_1/models/Pembayaran_Model.dart';
+import 'package:flutter_application_1/models/Riwayat_Model.dart';
 import 'package:flutter_application_1/widgets/Konfirmasi_Bayar/Total_Pembayaran.dart';
+import 'package:provider/provider.dart';
 
 class KartuSection extends StatefulWidget {
   final PembayaranModel payment;
@@ -154,9 +158,50 @@ class _CardSectionState extends State<KartuSection> {
               ),
             ),
             onPressed: () {
+              final cartProvider = Provider.of<CartProvider>(
+                context,
+                listen: false,
+              );
+
+              final riwayatProvider = Provider.of<RiwayatProvider>(
+                context,
+                listen: false,
+              );
+
+              final selectedItems = cartProvider.items.values
+                  .where((item) => item.isSelected)
+                  .map((item) => item.copy())
+                  .toList();
+
+              if (selectedItems.isEmpty) return;
+
+              final totalHarga = cartProvider.totalPayment;
+
+              final newOrder = RiwayatModel(
+                id: DateTime.now().toString(),
+                type: OrderType.material,
+                title: "Pembelian ${selectedItems.length} Material",
+                date: DateTime.now(),
+                status: OrderStatuss.menunggupembayaran,
+                totalPrice: totalHarga,
+                items: selectedItems,
+                serviceLabel: "Material",
+              );
+
+              riwayatProvider.tambahRiwayat(newOrder);
+
+              for (var item
+                  in cartProvider.items.values
+                      .where((item) => item.isSelected)
+                      .toList()) {
+                cartProvider.removeCartItem(item);
+              }
+
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (_) => StatusPesanan()),
+                MaterialPageRoute(
+                  builder: (_) => StatusPesanan(order: newOrder),
+                ),
                 (route) => false,
               );
             },

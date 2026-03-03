@@ -5,6 +5,7 @@ import 'package:flutter_application_1/Provider/App_State_Provider.dart';
 import 'package:flutter_application_1/Provider/AuthProvider.dart';
 import 'package:flutter_application_1/Provider/Cart_Provider.dart';
 import 'package:flutter_application_1/Provider/Provider_Layanan.dart';
+import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => ProviderLayanan()),
         ChangeNotifierProvider(create: (_) => AddressProvider()),
+        ChangeNotifierProvider(create: (_) => RiwayatProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

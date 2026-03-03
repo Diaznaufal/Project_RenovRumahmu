@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Pages/Proyek_Page.dart';
+import 'package:flutter_application_1/Pages/Riwayat_Page.dart';
 import 'package:flutter_application_1/models/status_proyek.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,7 +13,7 @@ class StatusCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProyekPage()),
+          MaterialPageRoute(builder: (context) => RiwayatPage()),
         );
       },
       child: Container(

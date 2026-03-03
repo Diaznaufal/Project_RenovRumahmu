@@ -16,4 +16,13 @@ class CartItemModel {
   int get totalPrice {
     return product.price * quantity;
   }
+
+  CartItemModel copy() {
+    return CartItemModel(
+      product: product,
+      selectedSize: selectedSize,
+      quantity: quantity,
+      isSelected: isSelected,
+    );
+  }
 }

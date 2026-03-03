@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Home_Page.dart';
 import 'package:flutter_application_1/Pages/Pesan_Page.dart';
 import 'package:flutter_application_1/Pages/Profil_Page.dart';
-import 'package:flutter_application_1/Pages/Proyek_Page.dart';
+import 'package:flutter_application_1/Pages/Riwayat_Page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomMenu extends StatelessWidget {
@@ -45,7 +45,7 @@ class BottomMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProyekPage()),
+                MaterialPageRoute(builder: (context) => RiwayatPage()),
               );
             },
           ),

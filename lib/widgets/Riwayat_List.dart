@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Pages/Detailpesanan_Page.dart';
 import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -61,27 +62,71 @@ String getStatusLabel(OrderStatuss status) {
   }
 }
 
-List<Widget> _buildActionButtons(RiwayatModel item) {
+List<Widget> _buildActionButtons(BuildContext context, RiwayatModel item) {
   switch (item.status) {
     case OrderStatuss.menunggupembayaran:
       return [
         _buildSecondaryButton("Bayar Sekarang", onPressed: () {}),
         SizedBox(width: 8),
-        _buildPrimaryButton("Detail", onPressed: () {}),
+        _buildPrimaryButton(
+          "Detail",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailpesananPage(order: item),
+              ),
+            );
+          },
+        ),
       ];
 
     case OrderStatuss.disiapkan:
-      return [_buildPrimaryButton("Detail", onPressed: () {})];
+      return [
+        _buildPrimaryButton(
+          "Detail",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailpesananPage(order: item),
+              ),
+            );
+          },
+        ),
+      ];
 
     case OrderStatuss.dikirim:
       return [
         _buildSecondaryButton("Lacak Pengiriman", onPressed: () {}),
         SizedBox(width: 8),
-        _buildPrimaryButton("Detail", onPressed: () {}),
+        _buildPrimaryButton(
+          "Detail",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailpesananPage(order: item),
+              ),
+            );
+          },
+        ),
       ];
 
     case OrderStatuss.selesai:
-      return [_buildPrimaryButton("Detail", onPressed: () {})];
+      return [
+        _buildPrimaryButton(
+          "Detail",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailpesananPage(order: item),
+              ),
+            );
+          },
+        ),
+      ];
 
     case OrderStatuss.dibatalkan:
       return [_buildPrimaryButton("Beli Lagi", onPressed: () {})];
@@ -129,7 +174,7 @@ class RiwayatList extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -172,7 +217,7 @@ class RiwayatList extends StatelessWidget {
                         ),
                       ),
 
-                      Spacer(),
+                      SizedBox(width: 10),
 
                       Text(
                         DateFormat('dd MMM yyyy').format(item.date),
@@ -199,16 +244,38 @@ class RiwayatList extends StatelessWidget {
                               ),
                             ),
 
-                            if (item.type == OrderType.material)
-                              ...products.map(
-                                (cartItem) => Padding(
-                                  padding: EdgeInsets.only(bottom: 4),
+                            if (item.type == OrderType.material) ...[
+                              ...products
+                                  .take(2)
+                                  .map(
+                                    (cartItem) => Padding(
+                                      padding: EdgeInsets.only(right: 80),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            cartItem.product.name,
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Text(
+                                            "x${cartItem.quantity}",
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                              if (products.length > 2)
+                                Padding(
+                                  padding: EdgeInsets.only(right: 80),
                                   child: Text(
-                                    "${cartItem.product.name} x${cartItem.quantity}",
+                                    "${products.length - 2} item lainnya",
                                     style: TextStyle(fontSize: 10),
                                   ),
                                 ),
-                              ),
+                            ],
 
                             if (item.type == OrderType.renovasi &&
                                 item.progress != null)
@@ -227,13 +294,21 @@ class RiwayatList extends StatelessWidget {
 
                       if (item.type == OrderType.material &&
                           products.isNotEmpty)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            products.first.product.imageUrl,
-                            width: 70,
-                            height: 70,
-                            fit: BoxFit.cover,
+                        Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(
+                              products.first.product.imageUrl,
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                     ],
@@ -268,7 +343,7 @@ class RiwayatList extends StatelessWidget {
                   /// ===== BUTTON =====
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: _buildActionButtons(item),
+                    children: _buildActionButtons(context, item),
                   ),
                 ],
               ),
@@ -291,7 +366,7 @@ Widget _buildPrimaryButton(String text, {required VoidCallback onPressed}) {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
-    onPressed: () {},
+    onPressed: onPressed,
     child: Text(text, style: TextStyle(fontSize: 12)),
   );
 }

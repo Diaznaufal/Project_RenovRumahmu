@@ -21,18 +21,34 @@ class RiwayatPage extends StatelessWidget {
         ),
         body: SafeArea(
           child: Column(
+            
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: TabBar(
-                  isScrollable: true,
-                  tabAlignment: TabAlignment.start,
-                  labelPadding: EdgeInsets.only(right: 24),
-                  tabs: [
-                    Tab(text: "Semua"),
-                    Tab(text: "Proyek"),
-                    Tab(text: "Material"),
-                  ],
+                child: SizedBox(
+                  height: 35,
+                  child: TabBar(
+                    isScrollable: true,
+                    tabAlignment: TabAlignment.start,
+                    labelPadding: EdgeInsets.only(right: 24),
+                    labelColor: Color(0xff045097),
+                    indicatorColor: Color(0xff045097),
+                    unselectedLabelColor: Colors.grey,
+                    labelStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    tabs: [
+                      Tab(text: "Semua"),
+                      Tab(text: "Proyek"),
+                      Tab(text: "Material"),
+                    ],
+                  ),
                 ),
               ),
               Expanded(

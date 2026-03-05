@@ -4,7 +4,7 @@ import 'package:flutter_application_1/Pages/Detail_Pembayaran.dart';
 import 'package:flutter_application_1/Pages/Konfirmasi_Page.dart';
 import 'package:flutter_application_1/Utils/Dialog_Helper.dart';
 import 'package:flutter_application_1/widgets/Alamat_Pengiriman.dart';
-import 'package:flutter_application_1/widgets/Rincian_harga.dart';
+import 'package:flutter_application_1/widgets/Rincian_Pembayaran.dart';
 import 'package:flutter_application_1/widgets/Ringkasan_Pesanan.dart';
 import 'package:flutter_application_1/widgets/Shiping_Section.dart';
 import 'package:provider/provider.dart';
@@ -169,7 +169,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
-          RincianHarga(),
+          RincianPembayaran(),
           SizedBox(height: 25),
           InkWell(
             onTap: () {

@@ -15,7 +15,7 @@ class RincianPesanan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 95,
       margin: EdgeInsets.symmetric(vertical: 6),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -55,8 +55,6 @@ class RincianPesanan extends StatelessWidget {
               children: [
                 Text(
                   item.product.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 ),
                 SizedBox(height: 4),
@@ -66,43 +64,42 @@ class RincianPesanan extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: Colors.black87),
                 ),
 
-                SizedBox(height: 4),
+                Spacer(),
 
-                Text(
-                  "Qty: ${item.quantity}",
-                  style: TextStyle(fontSize: 12, color: Colors.black87),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Qty: ${item.quantity}",
+                      style: TextStyle(fontSize: 12, color: Colors.black87),
+                    ),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (item.product.oldPrice != null)
+                          Text(
+                            formatRupiah.format(item.product.oldPrice),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        Text(
+                          formatRupiah.format(item.totalPrice),
+                          style: TextStyle(
+                            color: Color(0xff226889),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-          ),
-
-          // Harga
-          Column(
-            children: [
-              Spacer(),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  if (item.product.oldPrice != null)
-                    Text(
-                      formatRupiah.format(item.product.oldPrice),
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                  Text(
-                    formatRupiah.format(item.totalPrice),
-                    style: TextStyle(
-                      color: Color(0xff226889),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
         ],
       ),

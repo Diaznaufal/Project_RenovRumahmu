@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/Riwayat_Model.dart';
 import 'package:flutter_application_1/widgets/Alamat_user.dart';
 import 'package:flutter_application_1/widgets/Bottom_Menu.dart';
+import 'package:flutter_application_1/widgets/Rincian_Harga.dart';
 import 'package:flutter_application_1/widgets/Rincian_Pesanan.dart';
 import 'package:flutter_application_1/widgets/Status_Pesanan.dart';
+import '../Provider/Cart_Provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailpesananPage extends StatelessWidget {
   final RiwayatModel order;
   const DetailpesananPage({super.key, required this.order});
   @override
   Widget build(BuildContext context) {
+    final cart = context.read<CartProvider>();
+    final payment = cart.selectedPayment!;
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -58,6 +63,30 @@ class DetailpesananPage extends StatelessWidget {
                   Text("Tidak ada produk")
                 else
                   ...order.items!.map((item) => RincianPesanan(item: item)),
+                SizedBox(height: 10),
+                RincianHarga(
+                  items: order.items!,
+                  payment: payment,
+                  status: order.status,
+                ),
+                SizedBox(height: 16),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Color(0xff003466),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Cek Riwayat Pesanan",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

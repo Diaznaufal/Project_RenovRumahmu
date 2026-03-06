@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
               Text(
                 "Hello...",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 2,
                 ),
@@ -66,22 +66,22 @@ class _RegisterState extends State<Register> {
               Text(
                 "Register",
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 25),
 
               // Username / Email
               _inputField(labelText: "Username", controller: nameController),
 
-              SizedBox(height: 10),
+              SizedBox(height: 8),
 
               // Number Phone
               _inputField(labelText: "Email", controller: emialController),
 
-              SizedBox(height: 10),
+              SizedBox(height: 8),
 
               // Password
               _passwordField(
@@ -95,7 +95,7 @@ class _RegisterState extends State<Register> {
                 },
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 8),
 
               // Confirm Password
               _passwordField(
@@ -136,12 +136,10 @@ class _RegisterState extends State<Register> {
                     builder: (_) => Login(),
                   );
                 },
-                child: Center(
+                child: SizedBox(
+                  width: 380,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 148,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: Color(0xff003466),
 
@@ -155,12 +153,14 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                    child: Center(
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Color(0xffffffff),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -218,6 +218,7 @@ Widget _passwordField({
     obscuringCharacter: "●",
     decoration: InputDecoration(
       labelText: "Password",
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       floatingLabelStyle: TextStyle(
         color: Colors.black,
         fontWeight: FontWeight.w600,
@@ -249,6 +250,7 @@ Widget _inputField({
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: labelText,
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         floatingLabelStyle: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w600,

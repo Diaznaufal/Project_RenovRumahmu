@@ -89,7 +89,7 @@ class _AddToCartModalState extends State<AddToCartModal> {
                             if (widget.product.discount != null)
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 6,
+                                  horizontal: 4,
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
@@ -100,7 +100,7 @@ class _AddToCartModalState extends State<AddToCartModal> {
                                   widget.product.discount!,
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 10,
+                                    fontSize: 8,
                                   ),
                                 ),
                               ),
@@ -146,7 +146,7 @@ class _AddToCartModalState extends State<AddToCartModal> {
 
                     /// SIZE
                     Wrap(
-                      spacing: 8,
+                      spacing: 4,
                       children: widget.product.size.map((size) {
                         final isSelected = selectedSize == size;
 
@@ -156,8 +156,8 @@ class _AddToCartModalState extends State<AddToCartModal> {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
+                              horizontal: 6,
+                              vertical: 2,
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
@@ -187,7 +187,7 @@ class _AddToCartModalState extends State<AddToCartModal> {
                           height: 20,
                           width: 20,
                           decoration: BoxDecoration(
-                            color: Color(0xff226889),
+                            color: Color(0xff0369C8),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(5),
                               bottomLeft: Radius.circular(5),
@@ -219,7 +219,7 @@ class _AddToCartModalState extends State<AddToCartModal> {
                           height: 20,
                           width: 20,
                           decoration: BoxDecoration(
-                            color: Color(0xff226889),
+                            color: Color(0xff0369C8),
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(5),
                               bottomRight: Radius.circular(5),
@@ -245,10 +245,10 @@ class _AddToCartModalState extends State<AddToCartModal> {
 
                     SizedBox(
                       width: double.infinity,
-                      height: 40,
+                      height: 30,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff226889),
+                          backgroundColor: Color(0xff0369C8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

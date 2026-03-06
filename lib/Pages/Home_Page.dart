@@ -59,18 +59,22 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "Lokasi Anda",
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                  style: TextStyle(fontSize: 10, color: Colors.black54),
                 ),
                 Row(
                   children: [
                     Text(
                       "Purwakarta",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Icon(Icons.keyboard_arrow_down, color: Color(0xff003466)),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 20,
+                      color: Color(0xff003466),
+                    ),
                   ],
                 ),
               ],
@@ -95,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Badge(
-                  offset: Offset(7, -7),
+                  offset: Offset(9, -9),
                   backgroundColor: Colors.red,
                   label: Text("3"),
                   textColor: Colors.white,
@@ -103,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     angle: -math.pi / 8,
                     child: Icon(
                       Icons.notifications_outlined,
-                      size: 28,
+                      size: 25,
                       color: Colors.white,
                     ),
                   ),
@@ -158,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
 
-                SizedBox(height: 25),
+                SizedBox(height: 20),
 
                 /// Banner
                 BannerIklan(
@@ -171,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                   height: bannerHeight,
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 15),
 
                 Text(
                   "Layanan Kami",
@@ -182,14 +186,14 @@ class _HomePageState extends State<HomePage> {
 
                 LayananKamiGrid(),
 
-                SizedBox(height: 20),
+                SizedBox(height: 15),
 
                 Text(
                   "Status Proyek",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 5),
 
                 /// Status Proyek List
                 SizedBox(
@@ -216,11 +220,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                 ),
 
-                SizedBox(height: 15),
+                SizedBox(height: 10),
 
                 Text(
                   "Bantuan",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
 
                 SizedBox(height: 15),

@@ -32,7 +32,7 @@ class RiwayatStatus extends StatelessWidget {
                 height: 18,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isCompleted ? Color(0xff045097) : Colors.white,
+                  color: isCompleted ? Color (0xff045097) : Colors.white,
                   border: Border.all(
                     color: isCompleted || isActive
                         ? Color(0xff045097)

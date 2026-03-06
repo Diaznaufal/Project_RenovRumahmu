@@ -80,10 +80,10 @@ class ProductItemCard extends StatelessWidget {
                     top: 8,
                     right: 8,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                       decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
+                        color: Color(0xffE60032),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         product.discount!,
@@ -110,12 +110,12 @@ class ProductItemCard extends StatelessWidget {
                 children: [
                   //BADGES
                   Wrap(
-                    spacing: 6,
+                    spacing: 4,
                     children: [
                       if (product.isBestSeller)
                         buildBadge("Best Seller", Colors.green),
                       if (product.isDiscount)
-                        buildBadge("Discount", Colors.red),
+                        buildBadge("Discount", Color(0xffE60032)),
                     ],
                   ),
 
@@ -131,8 +131,8 @@ class ProductItemCard extends StatelessWidget {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
+                            horizontal: 4,
+                            vertical: 2,
                           ),
                           decoration: BoxDecoration(
                             color: isSelected
@@ -143,7 +143,7 @@ class ProductItemCard extends StatelessWidget {
                           child: Text(
                             size,
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 9,
                               color: isSelected
                                   ? Colors.white
                                   : Color(0xff808080),
@@ -192,8 +192,8 @@ class ProductItemCard extends StatelessWidget {
 
                       //ADD BUTTON
                       Container(
-                        height: 25,
-                        width: 25,
+                        height: 22,
+                        width: 22,
                         decoration: BoxDecoration(
                           color: Color(0xff226889),
                           borderRadius: BorderRadius.circular(6),
@@ -234,7 +234,7 @@ Widget buildBadge(String text, Color color) {
       text,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 8,
+        fontSize: 7,
         fontWeight: FontWeight.bold,
       ),
     ),

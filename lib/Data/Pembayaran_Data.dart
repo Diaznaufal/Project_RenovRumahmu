@@ -23,54 +23,69 @@ final List<PembayaranModel> MetodePembayaran = [
   PembayaranModel(
     id: "BCA",
     title: "Bank Central Asia",
+    image: "images/BCA.jpg",
     category: PembayaranKategori.bank,
   ),
   PembayaranModel(
     id: "Mandiri",
     title: "Bank Mandiri",
+    image: "images/Mandiri.jpg",
     category: PembayaranKategori.bank,
   ),
   PembayaranModel(
     id: "BNI",
     title: "Bank Negara Indonesia",
+    image: "images/BNI.jpg",
     category: PembayaranKategori.bank,
   ),
   PembayaranModel(
     id: "BRI",
     title: "Bank Rakyat Indonesia",
+    image: "images/BRI.jpg",
     category: PembayaranKategori.bank,
   ),
   //Ewallet
   PembayaranModel(
     id: "Gopay",
     title: "Gopay",
+    image: "images/Gopay.jpg",
     category: PembayaranKategori.ewallet,
   ),
   PembayaranModel(
     id: "Dana",
     title: "Dana",
+    image: "images/Dana.jpg",
     category: PembayaranKategori.ewallet,
   ),
   PembayaranModel(
     id: "ShopeePay",
     title: "ShopeePay",
+    image: "images/Shopeepay.jpg",
     category: PembayaranKategori.ewallet,
   ),
   PembayaranModel(
     id: "OVO",
     title: "OVO",
+    image: "images/OVO.jpg",
     category: PembayaranKategori.ewallet,
   ),
   //card
   PembayaranModel(
     id: "Visa",
     title: "Visa",
+    image: "images/Visa.jpg",
     category: PembayaranKategori.kartu,
   ),
   PembayaranModel(
     id: "Mastercard",
     title: "Mastercard",
+    image: "images/Mastercard.jpg",
     category: PembayaranKategori.kartu,
   ),
-  PembayaranModel(id: "JCB", title: "JCB", category: PembayaranKategori.kartu),
+  PembayaranModel(
+    id: "JCB",
+    title: "JCB",
+    image: "images/JCB.jpg",
+    category: PembayaranKategori.kartu,
+  ),
 ];

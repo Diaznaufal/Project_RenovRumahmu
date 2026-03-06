@@ -129,7 +129,21 @@ List<Widget> _buildActionButtons(BuildContext context, RiwayatModel item) {
       ];
 
     case OrderStatuss.dibatalkan:
-      return [_buildPrimaryButton("Beli Lagi", onPressed: () {})];
+      return [
+        _buildSecondaryButton("Beli Lagi", onPressed: () {}),
+        SizedBox(width: 8),
+        _buildPrimaryButton(
+          "Detail",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailpesananPage(order: item),
+              ),
+            );
+          },
+        ),
+      ];
   }
 }
 

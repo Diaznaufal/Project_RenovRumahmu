@@ -68,7 +68,7 @@ class LayananKamiGrid extends StatelessWidget {
       itemCount: layananList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.5,
+        childAspectRatio: 1.65,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
@@ -94,11 +94,11 @@ class LayananKamiGrid extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     item.icon,
-                    width: 45,
-                    height: 45,
+                    width: 40,
+                    height: 40,
                     colorFilter: ColorFilter.mode(item.color, BlendMode.srcIn),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Text(
                     item.title,
                     style: const TextStyle(

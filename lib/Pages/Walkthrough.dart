@@ -67,7 +67,7 @@ class _WalkthroughPageState extends State<WalkthroughPage> {
                     Text(
                       pages[index]['title']!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -77,7 +77,7 @@ class _WalkthroughPageState extends State<WalkthroughPage> {
                       child: Text(
                         pages[index]['desc']!,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 12),
                       ),
                     ),
                   ],

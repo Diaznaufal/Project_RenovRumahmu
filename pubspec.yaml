@@ -117,6 +117,19 @@ flutter:
     - assets/icon/Pesan.svg
     - assets/icon/Profil.svg
     - assets/icon/Kurir.svg
+    - assets/icon/Check.svg
+    - assets/icon/Box.svg
+    - images/BCA.jpg
+    - images/BNI.jpg
+    - images/BRI.jpg
+    - images/Dana.jpg
+    - images/Gopay.jpg
+    - images/JCB.jpg
+    - images/Mandiri.jpg
+    - images/Mastercard.jpg
+    - images/OVO.jpg
+    - images/Shopeepay.jpg
+    - images/Visa.jpg
 
 
   #   - images/a_dot_ham.jpeg

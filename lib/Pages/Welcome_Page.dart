@@ -30,12 +30,12 @@ class WelcomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 80),
+              padding: EdgeInsets.symmetric(horizontal: 80),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     color: Color(0xFFFFFFFF),
                     letterSpacing: 1.5,
                   ),
@@ -53,76 +53,86 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            InkWell(
-              onTap: () {
-                showMaterialModalBottomSheet(
-                  context: context,
-                  expand: false,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => Register(),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(77),
-                      blurRadius: 5,
-                      spreadRadius: 1,
+            SizedBox(
+              width: 250,
+              child: InkWell(
+                onTap: () {
+                  showMaterialModalBottomSheet(
+                    context: context,
+                    expand: false,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => Register(),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(77),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Create Account",
+                      style: TextStyle(
+                        color: Color(0xff003466),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
-                  ],
-                ),
-                child: Text(
-                  "Create Account",
-                  style: TextStyle(
-                    color: Color(0xff003466),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
                   ),
                 ),
               ),
             ),
             SizedBox(height: 10),
-            InkWell(
-              onTap: () {
-                showMaterialModalBottomSheet(
-                  context: context,
-                  expand: false,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => Login(),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 98),
-                decoration: BoxDecoration(
-                  color: Color(0xff003466),
+            SizedBox(
+              width: 250,
+              child: InkWell(
+                onTap: () {
+                  showMaterialModalBottomSheet(
+                    context: context,
+                    expand: false,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => Login(),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Color(0xff003466),
 
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Color(0xffffffff), width: 2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(77),
-                      blurRadius: 5,
-                      spreadRadius: 1,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Color(0xffffffff), width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(77),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Color(0xffffffff),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
-                  ],
-                ),
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Color(0xffffffff),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
                   ),
                 ),
               ),
             ),
             Spacer(),
             Padding(
-              padding:  EdgeInsets.only(bottom: 5),
+              padding: EdgeInsets.only(bottom: 5),
               child: Text(
                 "RenovRumahMu © 2025",
                 style: TextStyle(color: Color(0xffffffff), fontSize: 12),

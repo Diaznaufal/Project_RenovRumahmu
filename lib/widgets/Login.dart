@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
               Text(
                 "Welcome Back",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 2,
                 ),
@@ -64,18 +64,22 @@ class _LoginState extends State<Login> {
               Text(
                 "Login",
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 30),
 
               // Username / Email
               TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(
                   labelText: "Username / Email",
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   floatingLabelStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
@@ -91,7 +95,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 8),
 
               // Password
               TextFormField(
@@ -100,6 +104,10 @@ class _LoginState extends State<Login> {
                 obscuringCharacter: "●",
                 decoration: InputDecoration(
                   labelText: "Password",
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   floatingLabelStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
@@ -125,7 +133,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
 
-              SizedBox(height: 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -133,16 +140,33 @@ class _LoginState extends State<Login> {
                     children: [
                       Checkbox(
                         value: rememberMe,
+
                         onChanged: (value) {
                           setState(() {
                             rememberMe = value!;
                           });
                         },
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        visualDensity: VisualDensity(
+                          horizontal: -2,
+                          vertical: -4,
+                        ),
                       ),
                       Text("Remember me"),
                     ],
                   ),
-                  TextButton(onPressed: () {}, child: Text("Forgat Password?")),
+                  TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.only(
+                        left: 0,
+                        right: 6,
+                        top: 0,
+                        bottom: 0,
+                      ),
+                    ),
+                    child: Text("Forgat Password?"),
+                  ),
                 ],
               ),
 
@@ -171,12 +195,10 @@ class _LoginState extends State<Login> {
                       }
                     : null,
 
-                child: Center(
+                child: SizedBox(
+                  width: 380,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 158,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: Color(0xff003466),
 
@@ -190,12 +212,14 @@ class _LoginState extends State<Login> {
                         ),
                       ],
                     ),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                    child: Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          color: Color(0xffffffff),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

@@ -39,13 +39,13 @@ class NavigasiCheckout extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                   "${cart.selectedItemCount} Produk dipilih",
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
               Row(
                 children: [
                   Transform.scale(
-                    scale: 0.6,
+                    scale: 0.7,
                     child: Checkbox(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       visualDensity: VisualDensity.compact,
@@ -78,7 +78,7 @@ class NavigasiCheckout extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      color: Color(0xff226889),
+                      color: Color(0xff0369C8),
                     ),
                   ),
                   if (cart.totalDiscount > 0)
@@ -101,9 +101,16 @@ class NavigasiCheckout extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff226889),
+                    backgroundColor: Color(0xff0369C8),
                     disabledBackgroundColor: Colors.grey.shade400,
+
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+
                   onPressed: cart.totalSelectedAmount == 0
                       ? null
                       : () {
@@ -114,7 +121,7 @@ class NavigasiCheckout extends StatelessWidget {
                         },
                   child: Text(
                     "Checkout",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
               ),

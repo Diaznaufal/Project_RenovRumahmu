@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Pages/Detailpesanan2_page.dart';
 import 'package:flutter_svg/svg.dart';
 import '../models/Riwayat_Model.dart';
 
@@ -29,7 +30,17 @@ class StatusOrder extends StatelessWidget {
       case OrderStatuss.disiapkan:
       case OrderStatuss.dikirim:
       case OrderStatuss.selesai:
-        return [_buildPrimaryButton("Lacak Pengiriman", onPressed: () {})];
+        return [
+          _buildPrimaryButton(
+            "Lacak Pengiriman",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Detailpesanan2Page()),
+              );
+            },
+          ),
+        ];
       case OrderStatuss.dibatalkan:
         return [_buildPrimaryButton("Beli Lagi", onPressed: () {})];
     }

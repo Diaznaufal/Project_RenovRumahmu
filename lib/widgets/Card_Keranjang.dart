@@ -104,12 +104,12 @@ class CardKeranjang extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.only(top: 6, right: 8, bottom: 8, left: 8),
+            padding: EdgeInsets.only(top: 6, right: 8, bottom: 8, left: 4),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Transform.scale(
-                  scale: 0.8,
+                  scale: 0.7,
                   child: Checkbox(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,

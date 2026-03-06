@@ -40,7 +40,7 @@ class _PageMaterialState extends State<PageMaterial> {
                 IconButton(
                   padding: EdgeInsets.zero,
                   constraints: BoxConstraints(),
-                  splashRadius: 20,
+                  splashRadius: 10,
                   onPressed: () => Navigator.pop(context),
                   icon: Transform.translate(
                     offset: Offset(-9, 0),
@@ -66,25 +66,38 @@ class _PageMaterialState extends State<PageMaterial> {
                         decoration: InputDecoration(
                           hintText: "Cari material",
                           hintStyle: TextStyle(
-                            color: Color(0xffBDC4C8),
+                            color: Color(0xFF7D8892),
                             fontSize: 14,
                           ),
 
                           prefixIcon: Icon(
                             Icons.search,
                             size: 18,
-                            color: Color(0xffBDC4C8),
+                            color: Color(0xFF7D8892),
                           ),
+
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 40,
                             minHeight: 28,
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 0,
+
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: Color(0xFF7D8892),
+                              width: 1,
+                            ),
                           ),
 
-                          border: InputBorder.none,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: Color(0xFF7D8892),
+                              width: 1.5,
+                            ),
+                          ),
                         ),
                       ),
                     ),

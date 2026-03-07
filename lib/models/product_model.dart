@@ -7,6 +7,7 @@ class ProductModel {
   final List<String> size;
   final bool isBestSeller;
   final bool isDiscount;
+  final String category;
 
   ProductModel({
     required this.imageUrl,
@@ -17,5 +18,6 @@ class ProductModel {
     required this.size,
     required this.isBestSeller,
     required this.isDiscount,
+    required this.category,
   });
 }

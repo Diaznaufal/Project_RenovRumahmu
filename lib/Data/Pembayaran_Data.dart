@@ -73,19 +73,19 @@ final List<PembayaranModel> MetodePembayaran = [
   PembayaranModel(
     id: "Visa",
     title: "Visa",
-    image: "images/Visa.jpg",
+    image: "",
     category: PembayaranKategori.kartu,
   ),
   PembayaranModel(
     id: "Mastercard",
     title: "Mastercard",
-    image: "images/Mastercard.jpg",
+    image: "",
     category: PembayaranKategori.kartu,
   ),
   PembayaranModel(
     id: "JCB",
     title: "JCB",
-    image: "images/JCB.jpg",
+    image: "",
     category: PembayaranKategori.kartu,
   ),
 ];

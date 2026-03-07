@@ -235,7 +235,7 @@ class RiwayatList extends StatelessWidget {
 
                       Text(
                         DateFormat('dd MMM yyyy').format(item.date),
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                     ],
                   ),
@@ -254,7 +254,7 @@ class RiwayatList extends StatelessWidget {
                               item.title,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 14,
                               ),
                             ),
 
@@ -297,7 +297,10 @@ class RiwayatList extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 4),
                                 child: Text(
                                   "Progress: ${item.progress}%",
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                           ],
@@ -309,8 +312,8 @@ class RiwayatList extends StatelessWidget {
                       if (item.type == OrderType.material &&
                           products.isNotEmpty)
                         Container(
-                          height: 75,
-                          width: 75,
+                          height: 65,
+                          width: 65,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Colors.grey.shade300),
@@ -319,14 +322,15 @@ class RiwayatList extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: Image.asset(
                               products.first.product.imageUrl,
-                              width: 70,
-                              height: 70,
+                              width: 75,
+                              height: 75,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                     ],
                   ),
+                  SizedBox(height: 5),
 
                   /// ===== TOTAL =====
                   if (item.type == OrderType.material &&
@@ -336,12 +340,15 @@ class RiwayatList extends StatelessWidget {
                       children: [
                         Text(
                           "Total Pesanan",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           NumberFormat.currency(
                             locale: 'id',
-                            symbol: 'Rp ',
+                            symbol: 'Rp',
                             decimalDigits: 0,
                           ).format(item.totalPrice),
                           style: TextStyle(
@@ -381,7 +388,7 @@ Widget _buildPrimaryButton(String text, {required VoidCallback onPressed}) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
     onPressed: onPressed,
-    child: Text(text, style: TextStyle(fontSize: 12)),
+    child: Text(text, style: TextStyle(fontSize: 10)),
   );
 }
 
@@ -396,6 +403,6 @@ Widget _buildSecondaryButton(String text, {required VoidCallback onPressed}) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
     onPressed: onPressed,
-    child: Text(text, style: TextStyle(fontSize: 12)),
+    child: Text(text, style: TextStyle(fontSize: 10)),
   );
 }

@@ -51,9 +51,11 @@ class StatusOrder extends StatelessWidget {
       case OrderStatuss.menunggupembayaran:
         return "assets/icon/E-Wallet.svg";
       case OrderStatuss.disiapkan:
+        return "assets/icon/Box.svg";
       case OrderStatuss.dikirim:
-      case OrderStatuss.selesai:
         return "assets/icon/Kurir.svg";
+      case OrderStatuss.selesai:
+        return "assets/icon/Check.svg";
       case OrderStatuss.dibatalkan:
         return "assets/icon/shop_bag.svg";
     }

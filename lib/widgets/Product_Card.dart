@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Data/Product_material.dart';
 import 'package:flutter_application_1/Provider/Cart_Provider.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -9,18 +8,20 @@ import 'Modal_Tambahkeranjang.dart';
 
 final formatRupiah = NumberFormat.currency(
   locale: 'id',
-  symbol: 'Rp ',
+  symbol: 'Rp',
   decimalDigits: 0,
 );
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final List<ProductModel> products;
+
+  const ProductCard({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: EdgeInsets.all(8),
-      itemCount: productList.length,
+      itemCount: products.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 0.7,
@@ -28,7 +29,9 @@ class ProductCard extends StatelessWidget {
         mainAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
-        return ProductItemCard(product: productList[index]);
+        return ProductItemCard(
+          product: products[index],
+        );
       },
     );
   }

@@ -124,12 +124,10 @@ flutter:
     - images/BRI.jpg
     - images/Dana.jpg
     - images/Gopay.jpg
-    - images/JCB.jpg
     - images/Mandiri.jpg
-    - images/Mastercard.jpg
     - images/OVO.jpg
     - images/Shopeepay.jpg
-    - images/Visa.jpg
+   
 
 
   #   - images/a_dot_ham.jpeg

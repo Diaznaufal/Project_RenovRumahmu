@@ -73,6 +73,7 @@ class _BankSectionState extends State<BankSection> {
             ],
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,6 +88,7 @@ class _BankSectionState extends State<BankSection> {
                   ),
                 ],
               ),
+              Image.asset(widget.payment.image, width: 70, height: 60),
             ],
           ),
         ),

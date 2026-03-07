@@ -10,6 +10,7 @@ final List<ProductModel> productList = [
     size: ["1 Meter", "2 Meter", "3 Meter"],
     isBestSeller: true,
     isDiscount: true,
+    category: "Pipa",
   ),
   ProductModel(
     imageUrl: "images/semen.jpg",
@@ -20,6 +21,7 @@ final List<ProductModel> productList = [
     size: ["23 kg", "40 kg", "50 kg"],
     isBestSeller: true,
     isDiscount: true,
+    category: "Semen",
   ),
   ProductModel(
     imageUrl: "images/semen biasa.jpg",
@@ -28,6 +30,7 @@ final List<ProductModel> productList = [
     size: ["40 kg"],
     isBestSeller: true,
     isDiscount: false,
+    category: "Semen",
   ),
   ProductModel(
     imageUrl: "images/cat.jpg",
@@ -38,6 +41,7 @@ final List<ProductModel> productList = [
     size: ["5 kg"],
     isBestSeller: false,
     isDiscount: true,
+    category: "Cat",
   ),
   ProductModel(
     imageUrl: "images/kabel.jpg",
@@ -46,6 +50,7 @@ final List<ProductModel> productList = [
     size: ["1 Meter"],
     isBestSeller: false,
     isDiscount: false,
+    category: "Kabel",
   ),
   ProductModel(
     imageUrl: "images/keramik.jpg",
@@ -54,5 +59,6 @@ final List<ProductModel> productList = [
     size: ["50x50", "60x60", "80x80"],
     isBestSeller: false,
     isDiscount: false,
+    category: "Keramik",
   ),
 ];

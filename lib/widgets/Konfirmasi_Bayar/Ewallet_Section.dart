@@ -36,6 +36,7 @@ class _EwalletSectionState extends State<EwalletSection> {
             ],
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +51,7 @@ class _EwalletSectionState extends State<EwalletSection> {
                   ),
                 ],
               ),
+              Image.asset(widget.payment.image, width: 70, height: 60),
             ],
           ),
         ),

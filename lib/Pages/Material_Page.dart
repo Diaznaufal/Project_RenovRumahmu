@@ -3,6 +3,8 @@ import 'package:flutter_application_1/Pages/Keranjang_Page.dart';
 import 'package:flutter_application_1/widgets/Product_Card.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/Category_Row.dart';
+import '../Data/Product_material.dart';
+import '../models/product_model.dart';
 
 class PageMaterial extends StatefulWidget {
   @override
@@ -13,15 +15,32 @@ class _PageMaterialState extends State<PageMaterial> {
   int selectedIndex = 0;
   String searchQuery = '';
 
-  final List<String> categories = [
-    "All",
-    "Semen",
-    "Cat",
-    "Keramik",
-    "Pasir",
-    "Pintu",
-    "Batu",
-  ];
+  // Ambil category dari data product
+  List<String> get categories {
+    final allCategories = productList
+        .map((product) => product.category)
+        .toSet()
+        .toList();
+
+    return ["All", ...allCategories];
+  }
+
+  // CATEGORY YANG DIPILIH
+  String get selectedCategory => categories[selectedIndex];
+
+  // FILTER PRODUCT
+  List<ProductModel> get filteredProducts {
+    return productList.where((product) {
+      final matchCategory =
+          selectedCategory == "All" || product.category == selectedCategory;
+
+      final matchSearch = product.name.toLowerCase().contains(
+        searchQuery.toLowerCase(),
+      );
+
+      return matchCategory && matchSearch;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,20 +88,16 @@ class _PageMaterialState extends State<PageMaterial> {
                             color: Color(0xFF7D8892),
                             fontSize: 14,
                           ),
-
                           prefixIcon: Icon(
                             Icons.search,
                             size: 18,
                             color: Color(0xFF7D8892),
                           ),
-
                           prefixIconConstraints: BoxConstraints(
                             minWidth: 40,
                             minHeight: 28,
                           ),
-
                           contentPadding: EdgeInsets.symmetric(horizontal: 12),
-
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
@@ -90,7 +105,6 @@ class _PageMaterialState extends State<PageMaterial> {
                               width: 1,
                             ),
                           ),
-
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
@@ -125,7 +139,9 @@ class _PageMaterialState extends State<PageMaterial> {
                 ),
               ],
             ),
+
             SizedBox(height: 12),
+
             Row(
               children: [
                 Expanded(
@@ -138,7 +154,9 @@ class _PageMaterialState extends State<PageMaterial> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(20),
                             onTap: () {
-                              setState(() => selectedIndex = index);
+                              setState(() {
+                                selectedIndex = index;
+                              });
                             },
                             child: CategoryRow(
                               title: categories[index],
@@ -180,6 +198,7 @@ class _PageMaterialState extends State<PageMaterial> {
           ],
         ),
       ),
+
       body: SafeArea(
         bottom: false,
         child: Padding(
@@ -188,7 +207,9 @@ class _PageMaterialState extends State<PageMaterial> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 5),
-              Expanded(child: ProductCard()),
+
+              // PRODUCT FILTERED
+              Expanded(child: ProductCard(products: filteredProducts)),
             ],
           ),
         ),

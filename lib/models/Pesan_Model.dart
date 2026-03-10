@@ -1,7 +1,7 @@
 class ChatModel {
   final String name;
-  final String message;
-  final String time;
+  String message;
+  String time;
   final String imageUrl;
   int unreadCount;
 
@@ -10,6 +10,13 @@ class ChatModel {
     required this.message,
     required this.time,
     required this.imageUrl,
-    required this.unreadCount,
+    this.unreadCount = 0,
   });
+}
+
+class MessageModel {
+  final String text;
+  final bool isMe;
+
+  MessageModel({required this.text, required this.isMe});
 }

@@ -113,9 +113,13 @@ flutter:
     - assets/icon/E-Wallet.svg
     - assets/icon/Kartu.svg
     - assets/icon/Home_Solid.svg
-    - assets/icon/Proyek.svg
-    - assets/icon/Pesan.svg
-    - assets/icon/Profil.svg
+    - assets/icon/Home_Outline.svg
+    - assets/icon/Proyek_Solid.svg
+    - assets/icon/Proyek_Outline.svg
+    - assets/icon/Pesan_Solid.svg
+    - assets/icon/Pesan_Outline.svg
+    - assets/icon/Profil_Solid.svg
+    - assets/icon/Profil_Outline.svg
     - assets/icon/Kurir.svg
     - assets/icon/Check.svg
     - assets/icon/Box.svg
@@ -127,6 +131,10 @@ flutter:
     - images/Mandiri.jpg
     - images/OVO.jpg
     - images/Shopeepay.jpg
+    - images/Lampu.jpg
+    - images/Pipabesi.jpg
+    - images/Keramikmotif.jpg
+    - images/Keramikkayu.jpg
    
 
 

@@ -14,62 +14,77 @@ class BottomMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 65,
-      padding: EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      decoration: const BoxDecoration(
         color: Color(0xffffffff),
         boxShadow: [
-          BoxShadow(color: Colors.black, blurRadius: 1, offset: Offset(3, 1)),
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5,
+            offset: Offset(0, -1),
+          ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          /// HOME
           _menuItem(
             context: context,
             index: 0,
-            iconPath: "assets/icon/Home_Solid.svg",
+            iconOutline: "assets/icon/Home_Outline.svg",
+            iconSolid: "assets/icon/Home_Solid.svg",
             title: "Home",
             onTap: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (_) => HomePage()),
                 (route) => false,
               );
             },
           ),
+
+          /// RIWAYAT
           _menuItem(
             context: context,
             index: 1,
-            iconPath: "assets/icon/Proyek.svg",
-            title: "Proyek",
+            iconOutline: "assets/icon/Proyek_Outline.svg",
+            iconSolid: "assets/icon/Proyek_Solid.svg",
+            title: "Riwayat",
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RiwayatPage()),
+                MaterialPageRoute(builder: (_) => RiwayatPage()),
               );
             },
           ),
+
+          /// PESAN
           _menuItem(
             context: context,
             index: 2,
-            iconPath: "assets/icon/Pesan.svg",
+            iconOutline: "assets/icon/Pesan_Outline.svg",
+            iconSolid: "assets/icon/Pesan_Solid.svg",
             title: "Pesan",
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PesanPage()),
+                MaterialPageRoute(builder: (_) => PesanPage()),
               );
             },
           ),
+
+          /// PROFIL
           _menuItem(
             context: context,
             index: 3,
-            iconPath: "assets/icon/Profil.svg",
+            iconOutline: "assets/icon/Profil_Outline.svg",
+            iconSolid: "assets/icon/Profil_Solid.svg",
             title: "Profil",
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilPage()),
+                MaterialPageRoute(builder: (_) => ProfilPage()),
               );
             },
           ),
@@ -81,7 +96,8 @@ class BottomMenu extends StatelessWidget {
   Widget _menuItem({
     required BuildContext context,
     required int index,
-    required String iconPath,
+    required String iconOutline,
+    required String iconSolid,
     required String title,
     required VoidCallback onTap,
   }) {
@@ -92,21 +108,25 @@ class BottomMenu extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          /// ICON
           SvgPicture.asset(
-            iconPath,
-            width: isActive ? 22 : 21,
-            height: isActive ? 22 : 21,
+            isActive ? iconSolid : iconOutline,
+            width: 23,
+            height: 23,
             colorFilter: ColorFilter.mode(
               isActive ? const Color(0xff003466) : Colors.grey.shade600,
               BlendMode.srcIn,
             ),
           ),
 
+          const SizedBox(height: 4),
+
+          /// TEXT
           Text(
             title,
             style: TextStyle(
               fontSize: 12,
-              color: isActive ? Color(0xff003466) : Colors.grey.shade600,
+              color: isActive ? const Color(0xff003466) : Colors.grey.shade600,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             ),
           ),

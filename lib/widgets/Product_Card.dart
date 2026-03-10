@@ -29,9 +29,7 @@ class ProductCard extends StatelessWidget {
         mainAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
-        return ProductItemCard(
-          product: products[index],
-        );
+        return ProductItemCard(product: products[index]);
       },
     );
   }
@@ -179,7 +177,7 @@ class ProductItemCard extends StatelessWidget {
                           ),
                           if (product.oldPrice != null)
                             Padding(
-                              padding: EdgeInsets.only(left: 4),
+                              padding: EdgeInsets.only(left: 4, top: 5),
                               child: Text(
                                 formatRupiah.format(product.oldPrice),
                                 style: TextStyle(

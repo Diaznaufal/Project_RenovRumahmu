@@ -21,7 +21,6 @@ class RiwayatPage extends StatelessWidget {
         ),
         body: SafeArea(
           child: Column(
-            
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

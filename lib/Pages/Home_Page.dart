@@ -202,8 +202,8 @@ class _HomePageState extends State<HomePage> {
                       ? Center(child: CircularProgressIndicator())
                       : proyekList.isEmpty
                       ? Center(child: Text("Belum ada proyek"))
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
+                      : PageView.builder(
+                          controller: PageController(viewportFraction: 1),
                           itemCount: proyekList.length,
                           itemBuilder: (context, index) {
                             return Padding(
@@ -211,15 +211,11 @@ class _HomePageState extends State<HomePage> {
                                 horizontal: 5,
                                 vertical: 10,
                               ),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.91,
-                                child: StatusCard(proyek: proyekList[index]),
-                              ),
+                              child: StatusCard(proyek: proyekList[index]),
                             );
                           },
                         ),
                 ),
-
                 SizedBox(height: 10),
 
                 Text(

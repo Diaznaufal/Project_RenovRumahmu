@@ -44,7 +44,7 @@ class _ProfilPageState extends State<ProfilPage> {
           /// Content
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,6 +77,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
                   /// Profile Card
                   Card(
+                    color: Colors.white,
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -99,8 +100,8 @@ class _ProfilPageState extends State<ProfilPage> {
                         ? Center(child: CircularProgressIndicator())
                         : proyekList.isEmpty
                         ? Center(child: Text("Belum ada proyek"))
-                        : ListView.builder(
-                            scrollDirection: Axis.horizontal,
+                        : PageView.builder(
+                            controller: PageController(viewportFraction: 1),
                             itemCount: proyekList.length,
                             itemBuilder: (context, index) {
                               return Padding(
@@ -108,11 +109,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                   horizontal: 5,
                                   vertical: 10,
                                 ),
-                                child: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.88,
-                                  child: StatusCard(proyek: proyekList[index]),
-                                ),
+                                child: StatusCard(proyek: proyekList[index]),
                               );
                             },
                           ),

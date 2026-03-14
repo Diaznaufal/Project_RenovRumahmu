@@ -100,7 +100,6 @@ class AlamatPengiriman extends StatelessWidget {
               ),
             ),
 
-            // 🔹 Arrow kanan
             Padding(
               padding: EdgeInsets.only(left: 10),
               child: Icon(Icons.arrow_forward_ios, size: 15),

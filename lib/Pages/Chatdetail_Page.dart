@@ -15,159 +15,258 @@ class ChatDetailPage extends StatefulWidget {
 class _ChatDetailPageState extends State<ChatDetailPage> {
   final TextEditingController controller = TextEditingController();
 
-  List<MessageModel> messages = [];
+  late List<MessageModel> messages;
 
   @override
   void initState() {
     super.initState();
 
-    messages.add(MessageModel(text: widget.chat.message, isMe: false));
+    messages = widget.chat.messages;
+
+    if (messages.isEmpty) {
+      messages.add(
+        MessageModel(
+          text: widget.chat.message,
+          isMe: false,
+          time: getTimeNow(),
+        ),
+      );
+    }
+  }
+
+  String getTimeNow() {
+    final now = DateTime.now();
+    return "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+  }
+
+  bool isSameSender(int index) {
+    if (index == 0) return false;
+    return messages[index].isMe == messages[index - 1].isMe;
   }
 
   void sendMessage() {
     if (controller.text.trim().isEmpty) return;
 
+    final msg = MessageModel(
+      text: controller.text,
+      isMe: true,
+      time: getTimeNow(),
+      status: MessageStatus.sent,
+    );
+
     setState(() {
-      messages.add(MessageModel(text: controller.text, isMe: true));
+      messages.add(msg);
+
+      widget.chat.message = msg.text;
+      widget.chat.time = msg.time;
+      widget.chat.lastIsMe = true;
     });
 
     controller.clear();
+
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        msg.status = MessageStatus.delivered;
+      });
+    });
+
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        msg.status = MessageStatus.read;
+      });
+    });
+  }
+
+  Widget buildStatusIcon(MessageStatus status) {
+    switch (status) {
+      case MessageStatus.sent:
+        return Icon(Icons.check, size: 14, color: Colors.white70);
+
+      case MessageStatus.delivered:
+        return Icon(Icons.done_all, size: 14, color: Colors.white70);
+
+      case MessageStatus.read:
+        return Icon(Icons.done_all, size: 14, color: Colors.lightBlueAccent);
+
+      default:
+        return SizedBox();
+    }
+  }
+
+  void backWithResult() {
+    if (messages.isEmpty) {
+      Navigator.pop(context);
+      return;
+    }
+
+    final last = messages.last;
+
+    Navigator.pop(context, {
+      "message": last.text,
+      "time": last.time,
+      "isMe": last.isMe,
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        shadowColor: Colors.black.withAlpha(77),
-        titleSpacing: 15,
-        toolbarHeight: 60,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(widget.chat.imageUrl),
-              radius: 17,
-            ),
-            SizedBox(width: 10),
-            Text(widget.chat.name, style: TextStyle(fontSize: 16)),
-          ],
-        ),
-      ),
-
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  final message = messages[index];
-
-                  return Align(
-                    alignment: message.isMe
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
-                    child: Container(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.75,
-                      ),
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: message.isMe
-                            ? Color(0xff003466)
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Text(
-                        message.text,
-                        style: TextStyle(
-                          color: message.isMe ? Colors.white : Colors.black,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  );
-                },
+    return WillPopScope(
+      onWillPop: () async {
+        backWithResult();
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: backWithResult,
+          ),
+          elevation: 1,
+          shadowColor: Colors.black.withAlpha(77),
+          titleSpacing: 15,
+          toolbarHeight: 60,
+          title: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(widget.chat.imageUrl),
+                radius: 17,
               ),
-            ),
+              SizedBox(width: 10),
+              Text(widget.chat.name, style: TextStyle(fontSize: 16)),
+            ],
+          ),
+        ),
 
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Color(0xff003466),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                      icon: Icon(Icons.add, color: Colors.white, size: 20),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          builder: (context) {
-                            return AttachmentMenu();
-                          },
-                        );
-                      },
-                    ),
-                  ),
+        body: Padding(
+          padding: EdgeInsets.only(bottom: 5),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    final sameSender = isSameSender(index);
 
-                  SizedBox(width: 8),
-
-                  Expanded(
-                    child: TextField(
-                      controller: controller,
-                      minLines: 1,
-                      maxLines: 3,
-                      style: TextStyle(fontSize: 13),
-                      decoration: InputDecoration(
-                        hintText: "Tulis pesan...",
-                        hintStyle: TextStyle(fontSize: 13),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                    return Align(
+                      alignment: message.isMe
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.75,
                         ),
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16,
+                        margin: EdgeInsets.only(
+                          top: sameSender ? 3 : 12,
+                          bottom: 3,
+                          left: message.isMe ? 60 : 0,
+                          right: message.isMe ? 0 : 60,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14,
                           vertical: 8,
                         ),
-                      ),
-                    ),
-                  ),
+                        decoration: BoxDecoration(
+                          color: message.isMe
+                              ? Color(0xff003466)
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              message.text,
+                              style: TextStyle(
+                                color: message.isMe
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 13,
+                              ),
+                            ),
 
-                  SizedBox(width: 8),
+                            SizedBox(height: 2),
 
-                  CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Color(0xff003466),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                      icon: Transform.rotate(
-                        angle: -math.pi / 8,
-                        child: Icon(Icons.send, color: Colors.white, size: 18),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  message.time,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: message.isMe
+                                        ? Colors.white70
+                                        : Colors.black54,
+                                  ),
+                                ),
+
+                                if (message.isMe) ...[
+                                  SizedBox(width: 3),
+                                  buildStatusIcon(message.status),
+                                ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      onPressed: sendMessage,
-                    ),
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Color(0xff003466),
+                      child: IconButton(
+                        icon: Icon(Icons.add, color: Colors.white),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (_) => AttachmentMenu(),
+                          );
+                        },
+                      ),
+                    ),
+
+                    SizedBox(width: 8),
+
+                    Expanded(
+                      child: TextField(
+                        controller: controller,
+                        minLines: 1,
+                        maxLines: 3,
+                        decoration: InputDecoration(
+                          hintText: "Tulis pesan...",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width: 8),
+
+                    CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Color(0xff003466),
+                      child: IconButton(
+                        icon: Transform.rotate(
+                          angle: -math.pi / 8,
+                          child: Icon(Icons.send, color: Colors.white),
+                        ),
+                        onPressed: sendMessage,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -45,6 +45,16 @@ class _PesanPageState extends State<PesanPage> {
     ),
   ];
 
+  Widget buildStatusIcon(bool isMe, int unread) {
+    if (!isMe) return SizedBox();
+
+    if (unread > 0) {
+      return Icon(Icons.check, size: 14, color: Colors.grey);
+    } else {
+      return Icon(Icons.done_all, size: 14, color: Colors.blue);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,45 +84,16 @@ class _PesanPageState extends State<PesanPage> {
                   color: Color(0xffEBEEF3),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Center(
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        searchQuery = value;
-                      });
-                    },
-                    style: TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      hintText: "Search",
-                      hintStyle: TextStyle(
-                        color: Color(0xFF7D8892),
-                        fontSize: 14,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 18,
-                        color: Color(0xFF7D8892),
-                      ),
-                      prefixIconConstraints: BoxConstraints(
-                        minWidth: 40,
-                        minHeight: 28,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Color(0xFF7D8892),
-                          width: 1,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Color(0xFF7D8892),
-                          width: 1.5,
-                        ),
-                      ),
-                    ),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      searchQuery = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Search",
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.search),
                   ),
                 ),
               ),
@@ -130,24 +111,39 @@ class _PesanPageState extends State<PesanPage> {
             children: [
               ListTile(
                 dense: true,
+
                 title: Text(
                   chat.name,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
+
                 subtitle: Text(
                   chat.message,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 12),
                 ),
+
                 leading: CircleAvatar(
                   radius: 24,
                   backgroundImage: AssetImage(chat.imageUrl),
                 ),
+
                 trailing: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(chat.time, style: TextStyle(fontSize: 10)),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        buildStatusIcon(chat.lastIsMe, chat.unreadCount),
+
+                        if (chat.lastIsMe) SizedBox(width: 4),
+
+                        Text(chat.time, style: TextStyle(fontSize: 10)),
+                      ],
+                    ),
+
                     if (chat.unreadCount > 0)
                       Container(
                         margin: EdgeInsets.only(top: 4),
@@ -167,18 +163,21 @@ class _PesanPageState extends State<PesanPage> {
                       ),
                   ],
                 ),
+
                 onTap: () async {
-                  final newMessage = await Navigator.push(
+                  final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => ChatDetailPage(chat: chat),
                     ),
                   );
 
-                  if (newMessage != null) {
+                  if (result != null) {
                     setState(() {
-                      chat.message = newMessage;
-                      chat.time = "Now";
+                      chat.message = result["message"];
+                      chat.time = result["time"];
+                      chat.lastIsMe = result["isMe"];
+                      chat.unreadCount = 0;
 
                       final updated = chats.removeAt(index);
                       chats.insert(0, updated);
@@ -186,6 +185,7 @@ class _PesanPageState extends State<PesanPage> {
                   }
                 },
               ),
+
               Divider(),
             ],
           );

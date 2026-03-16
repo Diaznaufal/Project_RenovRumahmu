@@ -15,14 +15,14 @@ class _PesanPageState extends State<PesanPage> {
     ChatModel(
       name: "Andi Pratama",
       message: "Halo, apakah project sudah selesai?",
-      time: "10.00 PM",
+      time: "10.00",
       imageUrl: "images/org1.jpg",
       unreadCount: 3,
     ),
     ChatModel(
       name: "Budi Santoso",
       message: "Nanti sore kita meeting ya",
-      time: "08.45 AM",
+      time: "08.45 ",
       imageUrl: "images/org3.jpg",
     ),
     ChatModel(
@@ -165,26 +165,36 @@ class _PesanPageState extends State<PesanPage> {
                 ),
 
                 onTap: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatDetailPage(chat: chat),
-                    ),
-                  );
+  setState(() {
+    chat.unreadCount = 0;
+  });
 
-                  if (result != null) {
-                    setState(() {
-                      chat.message = result["message"];
-                      chat.time = result["time"];
-                      chat.lastIsMe = result["isMe"];
-                      chat.unreadCount = 0;
+  final oldMessage = chat.message;
 
-                      final updated = chats.removeAt(index);
-                      chats.insert(0, updated);
-                    });
-                  }
-                },
-              ),
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ChatDetailPage(chat: chat),
+    ),
+  );
+
+  if (result != null) {
+    final newMessage = result["message"];
+
+    // ✅ cukup cek message saja
+    if (newMessage != oldMessage) {
+      setState(() {
+        chat.message = result["message"];
+        chat.time = result["time"];
+        chat.lastIsMe = result["isMe"];
+        chat.unreadCount = 0;
+
+        final updated = chats.removeAt(index);
+        chats.insert(0, updated);
+      });
+    }
+  }
+}),
 
               Divider(),
             ],

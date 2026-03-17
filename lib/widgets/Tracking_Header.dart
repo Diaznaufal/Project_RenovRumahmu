@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../models/Riwayat_Model.dart';
 
 class TrackingHeader extends StatelessWidget {
   final int currentStep;
-  const TrackingHeader({super.key, required this.currentStep});
+  final RiwayatModel data;
+  const TrackingHeader({super.key, required this.currentStep, required this.data});
 
   String getIconPath() {
     if (currentStep <= 2) {
@@ -45,7 +47,7 @@ class TrackingHeader extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              "ID Pesanan: SH-01-0000012",
+              "ID Pesanan: ${data.id}",
               style: TextStyle(fontSize: 10, color: Colors.grey),
             ),
             SizedBox(height: 6),

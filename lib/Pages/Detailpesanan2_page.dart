@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/Bottom_Menu.dart';
 import 'package:flutter_application_1/widgets/Tracking_Header.dart';
 import 'package:flutter_application_1/widgets/Tracking_Timeline.dart';
+import '../models/Riwayat_Model.dart';
 
 class Detailpesanan2Page extends StatelessWidget {
+  final RiwayatModel order;
+  const Detailpesanan2Page({super.key, required this.order});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,7 @@ class Detailpesanan2Page extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TrackingHeader(currentStep: 2),
+            TrackingHeader(currentStep: 2,data: order,),
             SizedBox(height: 45),
             Text("Status Pesanan", style: TextStyle(fontSize: 15)),
             SizedBox(height: 10),

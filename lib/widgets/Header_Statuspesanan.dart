@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Home_Page.dart';
+import 'package:provider/provider.dart';
+import '../Provider/Cart_Provider.dart';
 
 class HeaderStatuspesanan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cart = context.watch<CartProvider>();
     return Center(
       child: Column(
         children: [
@@ -21,7 +24,7 @@ class HeaderStatuspesanan extends StatelessWidget {
             "Pesanan Diproses!",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          Text("ID Pesanan: SN-01-0000012", style: TextStyle(fontSize: 10)),
+          Text("ID Pesanan: ${cart.invoice}", style: TextStyle(fontSize: 10)),
           SizedBox(height: 5),
           Container(
             decoration: BoxDecoration(

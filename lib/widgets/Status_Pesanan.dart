@@ -4,12 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import '../models/Riwayat_Model.dart';
 
 class StatusOrder extends StatelessWidget {
-  final OrderStatuss order;
+  final RiwayatModel data;
 
-  const StatusOrder({super.key, required this.order});
+  const StatusOrder({
+    super.key,
+    required this.data,
+  });
 
   String getStatusText() {
-    switch (order) {
+    switch (data.status) {
       case OrderStatuss.menunggupembayaran:
         return "Menunggu Pembayaran";
       case OrderStatuss.disiapkan:
@@ -24,9 +27,15 @@ class StatusOrder extends StatelessWidget {
   }
 
   List<Widget> _buildActionButtons(BuildContext context) {
-    switch (order) {
+    switch (data.status) {
       case OrderStatuss.menunggupembayaran:
-        return [_buildPrimaryButton("Bayar Sekarang", onPressed: () {})];
+        return [
+          _buildPrimaryButton(
+            "Bayar Sekarang",
+            onPressed: () {},
+          ),
+        ];
+
       case OrderStatuss.disiapkan:
       case OrderStatuss.dikirim:
       case OrderStatuss.selesai:
@@ -36,41 +45,57 @@ class StatusOrder extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Detailpesanan2Page()),
+                MaterialPageRoute(
+                  builder: (context) => Detailpesanan2Page(order: data,),
+                ),
               );
             },
           ),
         ];
+
       case OrderStatuss.dibatalkan:
-        return [_buildPrimaryButton("Beli Lagi", onPressed: () {})];
+        return [
+          _buildPrimaryButton(
+            "Beli Lagi",
+            onPressed: () {},
+          ),
+        ];
     }
   }
 
   String getIcon() {
-    switch (order) {
+    switch (data.status) {
       case OrderStatuss.menunggupembayaran:
         return "assets/icon/E-Wallet.svg";
+
       case OrderStatuss.disiapkan:
         return "assets/icon/Box.svg";
+
       case OrderStatuss.dikirim:
         return "assets/icon/Kurir.svg";
+
       case OrderStatuss.selesai:
         return "assets/icon/Check.svg";
+
       case OrderStatuss.dibatalkan:
         return "assets/icon/shop_bag.svg";
     }
   }
 
   Color getColor() {
-    switch (order) {
+    switch (data.status) {
       case OrderStatuss.menunggupembayaran:
         return Colors.blue;
+
       case OrderStatuss.disiapkan:
         return Colors.orange;
+
       case OrderStatuss.dikirim:
         return Colors.green;
+
       case OrderStatuss.selesai:
         return Colors.grey;
+
       case OrderStatuss.dibatalkan:
         return Colors.red;
     }
@@ -80,17 +105,36 @@ class StatusOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
+
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
-          BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 6),
+          BoxShadow(
+            color: Colors.black.withAlpha(30),
+            blurRadius: 6,
+          ),
         ],
       ),
+
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [Text("Order Id: "), Text("SN-01-0000012")]),
+
+          /// ID PESANAN
+          Row(
+            children: [
+              Text("ID Pesanan: "),
+              Text(
+                data.id,
+              
+              ),
+            ],
+          ),
+
           SizedBox(height: 8),
+
+          /// STATUS
           Row(
             children: [
               SvgPicture.asset(
@@ -102,20 +146,36 @@ class StatusOrder extends StatelessWidget {
                   BlendMode.srcIn,
                 ),
               ),
+
               SizedBox(width: 15),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(getStatusText()),
+
+                  /// STATUS TEXT
                   Text(
-                    "20 Feb 2026, 14:00 - Pesanan dikirim dari gudang",
-                    style: TextStyle(fontSize: 11),
+                    getStatusText(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                  /// DATE
+                  Text(
+                    "${data.date}",
+                    style: TextStyle(
+                      fontSize: 11,
+                    ),
                   ),
                 ],
               ),
             ],
           ),
+
           SizedBox(height: 10),
+
+          /// BUTTON
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: _buildActionButtons(context),
@@ -126,18 +186,29 @@ class StatusOrder extends StatelessWidget {
   }
 }
 
-Widget _buildPrimaryButton(String text, {required VoidCallback onPressed}) {
+Widget _buildPrimaryButton(
+  String text, {
+  required VoidCallback onPressed,
+}) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 6,
+      ),
       minimumSize: Size(0, 0),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: Color(0xff045097),
       foregroundColor: Colors.white,
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
     ),
     onPressed: onPressed,
-    child: Text(text, style: TextStyle(fontSize: 12)),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 12),
+    ),
   );
 }

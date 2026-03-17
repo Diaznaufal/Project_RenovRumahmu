@@ -158,53 +158,48 @@ class _CardSectionState extends State<KartuSection> {
               ),
             ),
             onPressed: () {
-              final cartProvider = Provider.of<CartProvider>(
-                context,
-                listen: false,
-              );
+  final cartProvider = context.read<CartProvider>();
+  final riwayatProvider = context.read<RiwayatProvider>();
 
-              final riwayatProvider = Provider.of<RiwayatProvider>(
-                context,
-                listen: false,
-              );
+  // ✅ buat order dulu
+  cartProvider.createOrder();
 
-              final selectedItems = cartProvider.items.values
-                  .where((item) => item.isSelected)
-                  .map((item) => item.copy())
-                  .toList();
+  final selectedItems = cartProvider.items.values
+      .where((item) => item.isSelected)
+      .map((item) => item.copy())
+      .toList();
 
-              if (selectedItems.isEmpty) return;
+  if (selectedItems.isEmpty) return;
 
-              final totalHarga = cartProvider.totalPayment;
+  final totalHarga = cartProvider.totalPayment;
 
-              final newOrder = RiwayatModel(
-                id: DateTime.now().toString(),
-                type: OrderType.material,
-                title: "Pembelian ${selectedItems.length} Material",
-                date: DateTime.now(),
-                status: OrderStatuss.menunggupembayaran,
-                totalPrice: totalHarga,
-                items: selectedItems,
-                serviceLabel: "Material",
-              );
+  final newOrder = RiwayatModel(
+    id: cartProvider.invoice!, // sekarang sudah ada
+    type: OrderType.material,
+    title: "Pembelian ${selectedItems.length} Material",
+    date: DateTime.now(),
+    status: OrderStatuss.dikirim,
+    totalPrice: totalHarga,
+    items: selectedItems,
+    serviceLabel: "Material",
+  );
 
-              riwayatProvider.tambahRiwayat(newOrder);
+  riwayatProvider.tambahRiwayat(newOrder);
 
-              for (var item
-                  in cartProvider.items.values
-                      .where((item) => item.isSelected)
-                      .toList()) {
-                cartProvider.removeCartItem(item);
-              }
+  for (var item in cartProvider.items.values
+      .where((item) => item.isSelected)
+      .toList()) {
+    cartProvider.removeCartItem(item);
+  }
 
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => StatusPesanan(order: newOrder),
-                ),
-                (route) => false,
-              );
-            },
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(
+      builder: (_) => StatusPesanan(order: newOrder),
+    ),
+    (route) => false,
+  );
+},
             child: Text("Bayar Sekarang"),
           ),
         ),

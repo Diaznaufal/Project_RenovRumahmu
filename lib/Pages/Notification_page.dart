@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/Notifikasi_Model.dart';
 import 'package:flutter_application_1/widgets/Notifikasi_Widget.dart';
+import '../Pages/Detailnotifikasi_Page.dart';
 
 class NotifikasiPage extends StatefulWidget {
   const NotifikasiPage({super.key});
@@ -15,11 +16,11 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
     NotifikasiModel(
       id: "1",
       icon: CupertinoIcons.cart,
-      iconBg: const Color(0xFFE46802),
+      iconBg: Color(0xFFE46802),
       title: "Payment Successful",
       subtitle: "Your payment has been completed.",
       time: "5m",
-      isNew: true,
+      isRead: false,
     ),
     NotifikasiModel(
       id: "2",
@@ -28,7 +29,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
       title: "Flash Sale Alert!",
       subtitle: "Don't miss 50% off all items today!",
       time: "10m",
-      isNew: false,
+      isRead: true,
     ),
     NotifikasiModel(
       id: "3",
@@ -37,7 +38,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
       title: "Update Available",
       subtitle: "A new version is now available.",
       time: "30m",
-      isNew: false,
+      isRead: true,
     ),
   ];
 
@@ -115,13 +116,10 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                             key: ValueKey(item.id),
                             direction: DismissDirection.endToStart,
 
-                            confirmDismiss: (direction) async {
-                              return true;
-                            },
-
                             onDismissed: (direction) {
                               setState(() {
-                                _notifs.removeWhere((e) => e.id == item.id);
+                                _notifs.removeWhere(
+                                    (e) => e.id == item.id);
                               });
                             },
 
@@ -130,7 +128,8 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                               padding: EdgeInsets.only(right: 20),
                               decoration: BoxDecoration(
                                 color: Colors.red,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius:
+                                    BorderRadius.circular(12),
                               ),
                               child: Icon(
                                 Icons.delete_outline,
@@ -139,7 +138,38 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                               ),
                             ),
 
-                            child: notifikasiCard(notif: item),
+                            child: GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  item.isRead = true;
+                                });
+
+                                // nanti bisa navigasi ke detail di sini
+                              },
+                              child: GestureDetector(
+  onTap: () async {
+
+    // ubah jadi read
+    setState(() {
+      item.isRead = true;
+    });
+
+    // navigasi ke detail
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailNotifPage(
+          notif: item,
+        ),
+      ),
+    );
+  },
+
+  child: notifikasiCard(
+    notif: item,
+  ),
+),
+                            ),
                           ),
                         );
                       },

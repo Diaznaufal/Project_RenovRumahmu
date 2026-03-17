@@ -55,7 +55,7 @@ class DetailpesananPage extends StatelessWidget {
                 SizedBox(height: 10),
                 Text("Status Pesanan", style: TextStyle(fontSize: 16)),
                 SizedBox(height: 10),
-                StatusOrder(order: order.status),
+                StatusOrder(data: order),
                 SizedBox(height: 10),
                 Text("Rincian Pesanan", style: TextStyle(fontSize: 16)),
                 SizedBox(height: 7),

@@ -5,7 +5,12 @@ class NotifikasiButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  NotifikasiButton({super.key, required this.icon, required this.onTap});
+  const NotifikasiButton({
+    super.key,
+    required this.icon,
+    required this.onTap,
+  });
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -23,7 +28,11 @@ class NotifikasiButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(icon, size: 20, color: Colors.black),
+        child: Icon(
+          icon,
+          size: 20,
+          color: Colors.black,
+        ),
       ),
     );
   }
@@ -32,13 +41,21 @@ class NotifikasiButton extends StatelessWidget {
 class notifikasiCard extends StatelessWidget {
   final NotifikasiModel notif;
 
-  notifikasiCard({super.key, required this.notif});
+  const notifikasiCard({
+    super.key,
+    required this.notif,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 3),
+
       decoration: BoxDecoration(
-        color: Color(0xfff5f9fd),
+        color: notif.isRead
+            ? Color(0xFFCCCCCC) // sudah dibaca
+            : Color(0xFFFFFFFF),
+
         borderRadius: BorderRadius.circular(12),
 
         boxShadow: [
@@ -50,8 +67,10 @@ class notifikasiCard extends StatelessWidget {
           ),
         ],
       ),
+
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 15),
+
         leading: Container(
           height: 46,
           width: 46,
@@ -59,8 +78,13 @@ class notifikasiCard extends StatelessWidget {
             color: notif.iconBg,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(notif.icon, color: Colors.white, size: 26),
+          child: Icon(
+            notif.icon,
+            color: Colors.white,
+            size: 26,
+          ),
         ),
+
         title: Row(
           children: [
             Expanded(
@@ -68,39 +92,36 @@ class notifikasiCard extends StatelessWidget {
                 notif.title,
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+
+                  // unread lebih tebal
+                  fontWeight: notif.isRead
+                      ? FontWeight.w500
+                      : FontWeight.w700,
+
                   color: Colors.black,
                 ),
               ),
             ),
-            if (notif.isNew)
-              Container(
-                margin: EdgeInsets.only(right: 8),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  "New",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+
+            // waktu
             Text(
               notif.time,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
+
         subtitle: Padding(
           padding: EdgeInsets.only(top: 6),
           child: Text(
             notif.subtitle,
-            style: TextStyle(fontSize: 13, color: Colors.black),
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.black87,
+            ),
           ),
         ),
       ),

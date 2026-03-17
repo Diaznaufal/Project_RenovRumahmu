@@ -7,7 +7,8 @@ class NotifikasiModel {
   final String title;
   final String subtitle;
   final String time;
-  final bool isNew;
+
+  bool isRead;
 
   NotifikasiModel({
     required this.id,
@@ -16,6 +17,6 @@ class NotifikasiModel {
     required this.title,
     required this.subtitle,
     required this.time,
-    required this.isNew,
+    required this.isRead,
   });
 }

@@ -3,6 +3,7 @@ import '../models/product_model.dart';
 import '../models/product_cart.dart';
 import '../models/Pembayaran_Model.dart';
 import 'dart:async';
+import 'dart:math';
 
 class CartProvider with ChangeNotifier {
   final Map<String, CartItemModel> _items = {};
@@ -17,6 +18,11 @@ class CartProvider with ChangeNotifier {
   DateTime? _expiryTime;
   Duration _remaining = Duration.zero;
   Timer? _timer;
+  String? _invoice;
+DateTime? _orderTime;
+
+String? get invoice => _invoice;
+DateTime? get orderTime => _orderTime;
 
   DateTime? get expiryTime => _expiryTime;
   Duration get remainingTime => _remaining;
@@ -184,4 +190,21 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     });
   }
+  void createOrder() {
+  final now = DateTime.now();
+
+  final rand = Random().nextInt(99999);
+
+  final number = rand.toString().padLeft(5, '0');
+
+  _invoice =
+      "SN-${now.year}${now.month}${now.day}-$number";
+
+  _orderTime = now;
+
+  startPaymentCountdown();
+
+  notifyListeners();
 }
+}
+

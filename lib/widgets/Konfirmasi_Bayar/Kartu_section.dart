@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Status_pesanan.dart';
 import 'package:flutter_application_1/Provider/Cart_Provider.dart';
+import 'package:flutter_application_1/Provider/Order_Provider.dart';
 import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
 import 'package:flutter_application_1/models/Pembayaran_Model.dart';
 import 'package:flutter_application_1/models/Riwayat_Model.dart';
@@ -158,48 +159,50 @@ class _CardSectionState extends State<KartuSection> {
               ),
             ),
             onPressed: () {
-  final cartProvider = context.read<CartProvider>();
-  final riwayatProvider = context.read<RiwayatProvider>();
+              final cartProvider = context.read<CartProvider>();
+              final orderProvider = context.read<OrderProvider>();
+              final riwayatProvider = context.read<RiwayatProvider>();
 
-  // ✅ buat order dulu
-  cartProvider.createOrder();
+              // ✅ buat order dulu
+              orderProvider.checkout(cartProvider.items);
 
-  final selectedItems = cartProvider.items.values
-      .where((item) => item.isSelected)
-      .map((item) => item.copy())
-      .toList();
+              final selectedItems = cartProvider.items.values
+                  .where((item) => item.isSelected)
+                  .map((item) => item.copy())
+                  .toList();
 
-  if (selectedItems.isEmpty) return;
+              if (selectedItems.isEmpty) return;
 
-  final totalHarga = cartProvider.totalPayment;
+              final totalHarga = cartProvider.totalAmount;
 
-  final newOrder = RiwayatModel(
-    id: cartProvider.invoice!, // sekarang sudah ada
-    type: OrderType.material,
-    title: "Pembelian ${selectedItems.length} Material",
-    date: DateTime.now(),
-    status: OrderStatuss.dikirim,
-    totalPrice: totalHarga,
-    items: selectedItems,
-    serviceLabel: "Material",
-  );
+              final newOrder = RiwayatModel(
+                id: orderProvider.invoice!, // sekarang sudah ada
+                type: OrderType.material,
+                title: "Pembelian ${selectedItems.length} Material",
+                date: DateTime.now(),
+                status: OrderStatuss.dikirim,
+                totalPrice: totalHarga,
+                items: selectedItems,
+                serviceLabel: "Material",
+              );
 
-  riwayatProvider.tambahRiwayat(newOrder);
+              riwayatProvider.tambahRiwayat(newOrder);
 
-  for (var item in cartProvider.items.values
-      .where((item) => item.isSelected)
-      .toList()) {
-    cartProvider.removeCartItem(item);
-  }
+              for (var entry
+                  in cartProvider.items.entries
+                      .where((e) => e.value.isSelected)
+                      .toList()) {
+                cartProvider.removeItem(entry.key);
+              }
 
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(
-      builder: (_) => StatusPesanan(order: newOrder),
-    ),
-    (route) => false,
-  );
-},
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => StatusPesanan(order: newOrder),
+                ),
+                (route) => false,
+              );
+            },
             child: Text("Bayar Sekarang"),
           ),
         ),

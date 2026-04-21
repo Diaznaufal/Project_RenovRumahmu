@@ -72,7 +72,7 @@ class RincianPembayaran extends StatelessWidget {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    formatRupiah.format(cart.totalPayment),
+                    formatRupiah.format(cart.totalAmount),
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ],

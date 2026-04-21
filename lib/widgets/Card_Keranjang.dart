@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Provider/Cart_Provider.dart';
-import '../models/product_cart.dart';
+import '../models/cart_item_model.dart';
 import 'package:intl/intl.dart';
 
 final formatRupiah = NumberFormat.currency(
@@ -117,7 +117,7 @@ class CardKeranjang extends StatelessWidget {
                     value: item.isSelected,
                     onChanged: (value) {
                       context.read<CartProvider>().toggleItemSelection(
-                        item,
+                        itemKey, // ✅ FIX
                         value ?? false,
                       );
                     },
@@ -156,7 +156,6 @@ class CardKeranjang extends StatelessWidget {
                               ),
                             ),
 
-                            /// SIZE
                             Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 4,
@@ -214,7 +213,6 @@ class CardKeranjang extends StatelessWidget {
                         ),
                       ),
 
-                      /// QTY CONTROL
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -233,9 +231,11 @@ class CardKeranjang extends StatelessWidget {
                                 ),
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.read<CartProvider>().decreaseQty(
-                                      item,
-                                    );
+                                    context
+                                        .read<CartProvider>()
+                                        .decreaseQuantity(
+                                          itemKey, // ✅ FIX
+                                        );
                                   },
                                   child: Icon(
                                     Icons.remove,
@@ -275,9 +275,11 @@ class CardKeranjang extends StatelessWidget {
                                 ),
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.read<CartProvider>().increaseQty(
-                                      item,
-                                    );
+                                    context
+                                        .read<CartProvider>()
+                                        .increaseQuantity(
+                                          itemKey, // ✅ FIX
+                                        );
                                   },
                                   child: Icon(
                                     Icons.add,

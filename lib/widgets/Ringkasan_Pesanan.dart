@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Provider/Cart_Provider.dart';
-import '../models/product_cart.dart';
+import '../models/cart_item_model.dart';
 
 final formatRupiah = NumberFormat.currency(
   locale: 'id',
@@ -16,6 +16,7 @@ class RingkasanPesanan extends StatelessWidget {
 
   const RingkasanPesanan({Key? key, required this.item, required this.itemKey})
     : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -126,6 +127,7 @@ class RingkasanPesanan extends StatelessWidget {
                         ],
                       ),
                     ),
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -144,9 +146,9 @@ class RingkasanPesanan extends StatelessWidget {
                               ),
                               child: GestureDetector(
                                 onTap: () {
-                                  context.read<CartProvider>().decreaseQty(
-                                    item,
-                                  );
+                                  context.read<CartProvider>().decreaseQuantity(
+                                    itemKey,
+                                  ); // ✅ FIX
                                 },
                                 child: Icon(
                                   Icons.remove,
@@ -155,7 +157,9 @@ class RingkasanPesanan extends StatelessWidget {
                                 ),
                               ),
                             ),
+
                             SizedBox(width: 8),
+
                             Column(
                               children: [
                                 Text(
@@ -175,6 +179,7 @@ class RingkasanPesanan extends StatelessWidget {
                             ),
 
                             SizedBox(width: 8),
+
                             Container(
                               height: 18,
                               width: 18,
@@ -187,9 +192,9 @@ class RingkasanPesanan extends StatelessWidget {
                               ),
                               child: GestureDetector(
                                 onTap: () {
-                                  context.read<CartProvider>().increaseQty(
-                                    item,
-                                  );
+                                  context.read<CartProvider>().increaseQuantity(
+                                    itemKey,
+                                  ); // ✅ FIX
                                 },
                                 child: Icon(
                                   Icons.add,

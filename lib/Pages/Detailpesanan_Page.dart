@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Provider/Order_Provider.dart';
 import 'package:flutter_application_1/models/Riwayat_Model.dart';
 import 'package:flutter_application_1/widgets/Alamat_user.dart';
 import 'package:flutter_application_1/widgets/Bottom_Menu.dart';
 import 'package:flutter_application_1/widgets/Rincian_Harga.dart';
 import 'package:flutter_application_1/widgets/Rincian_Pesanan.dart';
 import 'package:flutter_application_1/widgets/Status_Pesanan.dart';
-import '../Provider/Cart_Provider.dart';
 import 'package:provider/provider.dart';
 
 class DetailpesananPage extends StatelessWidget {
@@ -13,8 +13,8 @@ class DetailpesananPage extends StatelessWidget {
   const DetailpesananPage({super.key, required this.order});
   @override
   Widget build(BuildContext context) {
-    final cart = context.read<CartProvider>();
-    final payment = cart.selectedPayment!;
+    final orderp = context.read<OrderProvider>();
+    final payment = orderp.selectedPayment!;
     return Scaffold(
       appBar: AppBar(
         elevation: 2,

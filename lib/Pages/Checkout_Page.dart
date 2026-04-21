@@ -9,7 +9,7 @@ import 'package:flutter_application_1/widgets/Ringkasan_Pesanan.dart';
 import 'package:flutter_application_1/widgets/Shiping_Section.dart';
 import 'package:provider/provider.dart';
 import '../Provider/Cart_Provider.dart';
-
+import '../Provider/Order_Provider.dart';
 import '../Data/pembayaran_data.dart';
 import '../models/Pembayaran_Model.dart';
 import '../widgets/Pembayaran_Card.dart';
@@ -35,7 +35,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<CartProvider>().selectPayment(null);
+      context.read<OrderProvider>().selectPayment(null);
       context.read<CartProvider>().selectShipping(0);
     });
   }
@@ -43,7 +43,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>();
-    final selectedPayment = cart.selectedPayment;
+    final order = context.watch<OrderProvider>();
+    final selectedPayment = order.selectedPayment;
     final items = cart.items.values.where((item) => item.isSelected).toList();
 
     return Scaffold(
@@ -150,7 +151,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           );
 
                           if (result != null) {
-                            context.read<CartProvider>().selectPayment(result);
+                            context.read<OrderProvider>().selectPayment(result);
                           }
                         },
                       ),
@@ -173,10 +174,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
           SizedBox(height: 25),
           InkWell(
             onTap: () {
-              final cart = context.read<CartProvider>();
-              final selectedPayment = cart.selectedPayment;
+              final order = context.read<OrderProvider>();
+              final selectedPayment = order.selectedPayment;
               final shippingCost = cart.shippingCost;
-              cart.startPaymentCountdown();
+              order.startPaymentCountdown();
 
               if (shippingCost == 0) {
                 showErrorDialog(

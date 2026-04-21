@@ -4,7 +4,7 @@ import 'package:flutter_application_1/widgets/Navigasi_Checkout.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Provider/Cart_Provider.dart';
-import '../models/product_cart.dart';
+import '../models/cart_item_model.dart';
 
 final formatRupiah = NumberFormat.currency(
   locale: 'id',

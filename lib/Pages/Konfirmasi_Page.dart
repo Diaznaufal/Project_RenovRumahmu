@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Provider/Order_Provider.dart';
 import 'package:flutter_application_1/widgets/Konfirmasi_Bayar/Bank_section.dart';
 import 'package:flutter_application_1/widgets/Konfirmasi_Bayar/Ewallet_Section.dart';
 import 'package:flutter_application_1/widgets/Konfirmasi_Bayar/Kartu_section.dart';
@@ -10,8 +11,9 @@ class KonfirmasiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = context.read<CartProvider>();
-    final payment = cart.selectedPayment!;
-    final total = cart.totalPayment;
+    final order = context.read<OrderProvider>();
+    final payment = order.selectedPayment!;
+    final total = cart.totalAmount;
 
     return Scaffold(
       appBar: AppBar(

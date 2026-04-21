@@ -4,6 +4,8 @@ import 'package:flutter_application_1/Provider/Addres_Provider.dart';
 import 'package:flutter_application_1/Provider/App_State_Provider.dart';
 import 'package:flutter_application_1/Provider/AuthProvider.dart';
 import 'package:flutter_application_1/Provider/Cart_Provider.dart';
+import 'package:flutter_application_1/Provider/Order_Provider.dart';
+import 'package:flutter_application_1/Provider/Product_provider.dart';
 import 'package:flutter_application_1/Provider/Provider_Layanan.dart';
 import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProviderLayanan()),
         ChangeNotifierProvider(create: (_) => AddressProvider()),
         ChangeNotifierProvider(create: (_) => RiwayatProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

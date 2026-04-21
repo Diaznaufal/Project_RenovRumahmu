@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/product_cart.dart';
+import '../models/cart_item_model.dart';
 
 final formatRupiah = NumberFormat.currency(
   locale: 'id',

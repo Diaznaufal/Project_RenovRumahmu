@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
-import '../models/product_cart.dart';
-import '../models/Pembayaran_Model.dart';
-import 'dart:async';
-import 'dart:math';
+import '../models/cart_item_model.dart';
 
 class CartProvider with ChangeNotifier {
   final Map<String, CartItemModel> _items = {};
@@ -12,23 +9,11 @@ class CartProvider with ChangeNotifier {
   Map<String, CartItemModel> get items => {..._items};
 
   int _shippingCost = 0;
-  PembayaranModel? _selectedPayment;
-  PembayaranModel? get selectedPayment => _selectedPayment;
-  DateTime? _purchaseTime;
-  DateTime? _expiryTime;
-  Duration _remaining = Duration.zero;
-  Timer? _timer;
-  String? _invoice;
-DateTime? _orderTime;
 
-String? get invoice => _invoice;
-DateTime? get orderTime => _orderTime;
-
-  DateTime? get expiryTime => _expiryTime;
-  Duration get remainingTime => _remaining;
   int get shippingCost => _shippingCost;
+
   int get totalAmount {
-    return items.values.fold(0, (total, item) => total + item.totalPrice);
+    return _items.values.fold(0, (total, item) => total + item.totalPrice);
   }
 
   int get totalSelectedAmount {
@@ -37,30 +22,35 @@ DateTime? get orderTime => _orderTime;
         .fold(0, (sum, item) => sum + item.totalPrice);
   }
 
+  String? getSelectedSize(String productName) {
+    return _selectedSizes[productName];
+  }
+
+  void setSelectedSize(String productName, String size) {
+    _selectedSizes[productName] = size;
+    notifyListeners();
+  }
+
   int get selectedItemCount {
     return _items.values.where((item) => item.isSelected).length;
   }
 
-  int get totalDiscount {
-    return _items.values.where((item) => item.isSelected).fold(0, (sum, item) {
-      if (item.product.oldPrice != null) {
-        int discountPerItem = (item.product.oldPrice! - item.product.price);
-        return sum + (discountPerItem * item.quantity);
-      }
-      return sum;
-    });
+  void toggleSelectAll(bool value) {
+    for (var item in _items.values) {
+      item.isSelected = value;
+    }
+    notifyListeners();
   }
 
-  int get subtotalSelected => _items.values
-      .where((item) => item.isSelected)
-      .fold(
-        0,
-        (sum, item) =>
-            sum +
-            ((item.product.oldPrice ?? item.product.price) * item.quantity),
-      );
-
-  int get totalPayment => totalSelectedAmount + shippingCost;
+  int get totalDiscount {
+    return _items.values.fold(0, (total, item) {
+      if (item.product.oldPrice != null) {
+        final discount = item.product.oldPrice! - item.product.price;
+        return total + (discount * item.quantity);
+      }
+      return total;
+    });
+  }
 
   void addToCart({
     required ProductModel product,
@@ -79,6 +69,13 @@ DateTime? get orderTime => _orderTime;
       );
     }
 
+    notifyListeners();
+  }
+
+  void toggleItemSelection(String key, bool value) {
+    if (!_items.containsKey(key)) return;
+
+    _items[key]!.isSelected = value;
     notifyListeners();
   }
 
@@ -106,8 +103,8 @@ DateTime? get orderTime => _orderTime;
     notifyListeners();
   }
 
-  void increaseQty(CartItemModel item) {
-    item.quantity++;
+  void clearCart() {
+    _items.clear();
     notifyListeners();
   }
 
@@ -115,96 +112,4 @@ DateTime? get orderTime => _orderTime;
     _shippingCost = cost;
     notifyListeners();
   }
-
-  void setSelectedSize(String productId, String size) {
-    _selectedSizes[productId] = size;
-    notifyListeners();
-  }
-
-  String? getSelectedSize(String productName) {
-    return _selectedSizes[productName];
-  }
-
-  void decreaseQty(CartItemModel item) {
-    if (item.quantity > 1) {
-      item.quantity--;
-    } else {
-      final key = '${item.product.name}_${item.selectedSize}';
-      _items.remove(key);
-    }
-    notifyListeners();
-  }
-
-  void toggleItemSelection(CartItemModel item, bool value) {
-    item.isSelected = value;
-    notifyListeners();
-  }
-
-  void toggleSelectAll(bool value) {
-    for (var item in _items.values) {
-      item.isSelected = value;
-    }
-    notifyListeners();
-  }
-
-  void updateQty(CartItemModel item, int newQty) {
-    if (newQty < 1) return;
-
-    item.quantity = newQty;
-    notifyListeners();
-  }
-
-  void removeCartItem(CartItemModel item) {
-    final key = '${item.product.name}_${item.selectedSize}';
-    _items.remove(key);
-    notifyListeners();
-  }
-
-  void clearCart() {
-    _items.clear();
-    notifyListeners();
-  }
-
-  void selectPayment(PembayaranModel? payment) {
-    _selectedPayment = payment;
-    notifyListeners();
-  }
-
-  void startPaymentCountdown() {
-    _purchaseTime = DateTime.now();
-    _expiryTime = _purchaseTime!.add(Duration(hours: 24));
-
-    _timer?.cancel();
-
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
-      final now = DateTime.now();
-      final diff = _expiryTime!.difference(now);
-
-      if (diff.isNegative) {
-        _remaining = Duration.zero;
-        _timer?.cancel();
-      } else {
-        _remaining = diff;
-      }
-
-      notifyListeners();
-    });
-  }
-  void createOrder() {
-  final now = DateTime.now();
-
-  final rand = Random().nextInt(99999);
-
-  final number = rand.toString().padLeft(5, '0');
-
-  _invoice =
-      "SN-${now.year}${now.month}${now.day}-$number";
-
-  _orderTime = now;
-
-  startPaymentCountdown();
-
-  notifyListeners();
 }
-}
-

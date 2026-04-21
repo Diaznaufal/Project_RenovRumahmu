@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Provider/Cart_Provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../models/product_cart.dart';
+import '../models/cart_item_model.dart';
 import '../models/Pembayaran_Model.dart';
 import '../models/Riwayat_Model.dart';
 

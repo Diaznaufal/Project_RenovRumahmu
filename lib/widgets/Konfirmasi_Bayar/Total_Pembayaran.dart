@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Provider/Cart_Provider.dart';
+import 'package:flutter_application_1/Provider/Order_Provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +24,7 @@ class TotalPembayaran extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<CartProvider>();
+    final cart = context.watch<OrderProvider>();
     final expiry = cart.expiryTime;
     final remaining = cart.remainingTime;
 

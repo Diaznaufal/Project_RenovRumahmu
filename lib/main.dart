@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Pages/Splash_Screen.dart';
-import 'package:flutter_application_1/Provider/Addres_Provider.dart';
-import 'package:flutter_application_1/Provider/App_State_Provider.dart';
-import 'package:flutter_application_1/Provider/AuthProvider.dart';
-import 'package:flutter_application_1/Provider/Cart_Provider.dart';
-import 'package:flutter_application_1/Provider/Order_Provider.dart';
-import 'package:flutter_application_1/Provider/Product_provider.dart';
-import 'package:flutter_application_1/Provider/Provider_Layanan.dart';
-import 'package:flutter_application_1/Provider/Riwayat_Provider.dart';
+import 'package:flutter_application_1/Features/Renovasi/Pages/Renovasi_Page.dart';
+import 'package:flutter_application_1/Features/Auth/Pages/Splash_Screen.dart';
+import 'package:flutter_application_1/Features/Address/Provider/Addres_Provider.dart';
+import 'package:flutter_application_1/Core/service/App_State_Provider.dart';
+import 'package:flutter_application_1/Features/Auth/Provider/AuthProvider.dart';
+import 'package:flutter_application_1/Features/Keranjang/Provider/Cart_Provider.dart';
+import 'package:flutter_application_1/Features/Checkout/Providers/Order_Provider.dart';
+import 'package:flutter_application_1/Features/Material/Provider/Product_provider.dart';
+import 'package:flutter_application_1/Features/Home/Provider/Provider_Layanan.dart';
+import 'package:flutter_application_1/Features/Renovasi/Providers/Renovasi_Provider.dart';
+import 'package:flutter_application_1/Features/RiwayatPesanan/Provider/Riwayat_Provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -32,6 +34,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RiwayatProvider()),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(
+          create: (_) => RenovasiProvider(),
+          child: RenovasiPage(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

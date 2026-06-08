@@ -44,7 +44,16 @@ dependencies:
   flutter_secure_storage: ^10.0.0
   flutter_svg: ^2.2.3
   geocoding: ^4.0.0
-  
+  dotted_line: ^3.2.3
+  syncfusion_flutter_datepicker: ^33.2.5
+  file_picker: ^11.0.2
+  permission_handler: ^12.0.1
+  photo_view: ^0.15.0
+  video_player: ^2.11.1
+  video_thumbnail: ^0.5.6
+  font_awesome_flutter: ^11.0.0
+  hugeicons: ^1.1.6
+  dropdown_button2: ^2.3.9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -83,62 +92,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/Logo renovrumahmu.png
-    - images/Logo renovrumahmu_biru.png
-    - assets/icon/Logo renovrumahmu.png
-    - assets/icon/Logo renovrumahmu_biru.png
-    - images/Banner.png
-    - assets/icon/Broom.svg
-    - assets/icon/House.svg
-    - assets/icon/shop_bag.svg
-    - assets/icon/solid_tools.svg
-    - assets/icon/sort_outline.svg
-    - assets/icon/help.svg
-    - images/Maintenance.png
-    - images/Banner2.png
-    - images/Banner3.png
-    - images/Banner4.png
-    - images/org1.jpg
-    - images/org2.jpg
-    - images/org3.jpg
-    - images/org4.jpg
-    - images/org5.jpg
-    - images/cat.jpg
-    - images/kabel.jpg
-    - images/keramik.jpg
-    - images/pipa.jpg
-    - images/semen biasa.jpg
-    - images/semen.jpg
-    - assets/icon/Bank.svg
-    - assets/icon/E-Wallet.svg
-    - assets/icon/Kartu.svg
-    - assets/icon/Home_Solid.svg
-    - assets/icon/Home_Outline.svg
-    - assets/icon/Proyek_Solid.svg
-    - assets/icon/Proyek_Outline.svg
-    - assets/icon/Pesan_Solid.svg
-    - assets/icon/Pesan_Outline.svg
-    - assets/icon/Profil_Solid.svg
-    - assets/icon/Profil_Outline.svg
-    - assets/icon/Kurir.svg
-    - assets/icon/Check.svg
-    - assets/icon/Box.svg
-    - images/BCA.jpg
-    - images/BNI.jpg
-    - images/BRI.jpg
-    - images/Dana.jpg
-    - images/Gopay.jpg
-    - images/Mandiri.jpg
-    - images/OVO.jpg
-    - images/Shopeepay.jpg
-    - images/Lampu.jpg
-    - images/Pipabesi.jpg
-    - images/Keramikmotif.jpg
-    - images/Keramikkayu.jpg
-   
-
-
-  #   - images/a_dot_ham.jpeg
+    - assets/images/
+    - assets/icon/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -173,6 +129,11 @@ flutter:
   - family: Inter
     fonts:
       - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
+  - family: Inria Sans
+    fonts:
+      - asset: assets/fonts/InriaSans-Regular.ttf
+      - asset: assets/fonts/InriaSans-Bold.ttf
+        weight: 800
   # fonts:
   #   - family: Schyler
   #     fonts:

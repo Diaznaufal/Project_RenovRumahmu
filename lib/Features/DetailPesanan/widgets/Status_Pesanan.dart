@@ -1,0 +1,181 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Features/DetailPesanan/Pages/Detailpesanan2_page.dart';
+import 'package:flutter_svg/svg.dart';
+import '../../RiwayatPesanan/Models/Riwayat_Model.dart';
+
+class StatusOrder extends StatelessWidget {
+  final RiwayatModel data;
+
+  const StatusOrder({super.key, required this.data});
+
+  String getStatusText() {
+    switch (data.orderStatuss!) {
+      case OrderStatuss.menunggupembayaran:
+        return "Menunggu Pembayaran";
+      case OrderStatuss.disiapkan:
+        return "Pesanan Disiapkan";
+      case OrderStatuss.dikirim:
+        return "Pesanan Dikirim";
+      case OrderStatuss.selesai:
+        return "Pesanan Selesai";
+      case OrderStatuss.dibatalkan:
+        return "Pesanan Dibatalkan";
+    }
+  }
+
+  List<Widget> _buildActionButtons(BuildContext context) {
+    switch (data.orderStatuss!) {
+      case OrderStatuss.menunggupembayaran:
+        return [_buildPrimaryButton("Bayar Sekarang", onPressed: () {})];
+
+      case OrderStatuss.disiapkan:
+      case OrderStatuss.dikirim:
+      case OrderStatuss.selesai:
+        return [
+          _buildPrimaryButton(
+            "Lacak Pengiriman",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Detailpesanan2Page(order: data),
+                ),
+              );
+            },
+          ),
+        ];
+
+      case OrderStatuss.dibatalkan:
+        return [_buildPrimaryButton("Beli Lagi", onPressed: () {})];
+    }
+  }
+
+  String getIcon() {
+    switch (data.orderStatuss!) {
+      case OrderStatuss.menunggupembayaran:
+        return "assets/icon/E-Wallet.svg";
+
+      case OrderStatuss.disiapkan:
+        return "assets/icon/Box.svg";
+
+      case OrderStatuss.dikirim:
+        return "assets/icon/Kurir.svg";
+
+      case OrderStatuss.selesai:
+        return "assets/icon/Check.svg";
+
+      case OrderStatuss.dibatalkan:
+        return "assets/icon/shop_bag.svg";
+    }
+  }
+
+  Color getColor() {
+    switch (data.orderStatuss!) {
+      case OrderStatuss.menunggupembayaran:
+        return Colors.blue;
+
+      case OrderStatuss.disiapkan:
+        return Colors.orange;
+
+      case OrderStatuss.dikirim:
+        return Colors.green;
+
+      case OrderStatuss.selesai:
+        return Colors.grey;
+
+      case OrderStatuss.dibatalkan:
+        return Colors.red;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 6),
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// ID PESANAN
+          Row(
+            children: [
+              Text("ID Pesanan: ", style: TextStyle(fontFamily: "Inria Sans")),
+              Text(data.id, style: TextStyle(fontFamily: "Inria Sans")),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          /// STATUS
+          Row(
+            children: [
+              SvgPicture.asset(
+                getIcon(),
+                width: 20,
+                height: 20,
+                colorFilter: ColorFilter.mode(
+                  Color(0xff045097),
+                  BlendMode.srcIn,
+                ),
+              ),
+
+              SizedBox(width: 15),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// STATUS TEXT
+                  Text(
+                    getStatusText(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Inria Sans",
+                    ),
+                  ),
+
+                  /// DATE
+                  Text(
+                    "${data.date}",
+                    style: TextStyle(fontSize: 11, fontFamily: "Inria Sans"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          SizedBox(height: 10),
+
+          /// BUTTON
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: _buildActionButtons(context),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildPrimaryButton(String text, {required VoidCallback onPressed}) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      minimumSize: Size(0, 0),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      backgroundColor: Color(0xff045097),
+      foregroundColor: Colors.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+    onPressed: onPressed,
+    child: Text(text, style: TextStyle(fontSize: 12, fontFamily: "Inria Sans")),
+  );
+}
